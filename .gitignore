@@ -65,3 +65,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+#in memory mongo
+globalConfigMongo.json
