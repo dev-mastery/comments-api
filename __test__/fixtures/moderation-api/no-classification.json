@@ -1,0 +1,13 @@
+{
+  "OriginalText": "¿Es este un correo electrónico abcdef@abcd.com, teléfono: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052",
+  "NormalizedText": "¿ Es este un correo electrónico abcdef@ abcd. com, teléfono: 6657789887, IP: 255. 255. 255. 255, 1 Microsoft Way, Redmond, WA 98052",
+  "Misrepresentation": null,
+  "Language": "spa",
+  "Terms": null,
+  "Status": {
+    "Code": 3000,
+    "Description": "OK",
+    "Exception": null
+  },
+  "TrackingId": "3c8260c0-bab0-43a9-a1aa-ae82bd2bcd45"
+}

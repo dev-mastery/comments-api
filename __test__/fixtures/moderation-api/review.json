@@ -1,0 +1,32 @@
+{
+  "OriginalText": "Is this a crap email abcdef@abcd.com, phone: 6657789887, IP: 255.255.255.255, 1 Microsoft Way, Redmond, WA 98052",
+  "NormalizedText": "Is this a crap email abcdef@ abcd. com, phone: 6657789887, IP: 255. 255. 255. 255, 1 Microsoft Way, Redmond, WA 98052",
+  "Misrepresentation": null,
+  "Classification": {
+    "ReviewRecommended": true,
+    "Category1": {
+      "Score": 0.00040505084325559437
+    },
+    "Category2": {
+      "Score": 0.22345089912414551
+    },
+    "Category3": {
+      "Score": 0.98799997568130493
+    }
+  },
+  "Language": "eng",
+  "Terms": [
+    {
+      "Index": 10,
+      "OriginalIndex": 10,
+      "ListId": 0,
+      "Term": "crap"
+    }
+  ],
+  "Status": {
+    "Code": 3000,
+    "Description": "OK",
+    "Exception": null
+  },
+  "TrackingId": "9af0d5b1-d68a-4b50-ace1-1f5a530ff682"
+}

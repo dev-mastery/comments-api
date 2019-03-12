@@ -1,0 +1,25 @@
+{
+    "OriginalText": "<p>A lovely sentence with no objectionable content.</p>",
+    "NormalizedText": "A lovely sentence with no objectionable content.",
+    "Misrepresentation": null,
+    "Classification": {
+        "ReviewRecommended": false,
+        "Category1": {
+            "Score": 0.0043876972049474716
+        },
+        "Category2": {
+            "Score": 0.22932250797748566
+        },
+        "Category3": {
+            "Score": 0.06878092885017395
+        }
+    },
+    "Language": "eng",
+    "Terms": null,
+    "Status": {
+        "Code": 3000,
+        "Description": "OK",
+        "Exception": null
+    },
+    "TrackingId": "5e7a2c7f-0467-492c-8ea0-ae58124978d0"
+}

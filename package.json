@@ -1,0 +1,44 @@
+{
+  "name": "comments-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "test": "jest src --watchAll",
+    "start": "babel-node ./src/index.js",
+    "test:integration": "jest ./__test__ --runInBand"
+  },
+  "keywords": [
+    "Clean Architecture",
+    "Mastery Monday"
+  ],
+  "author": "Bill Sourour <bill@devmastery.com>",
+  "license": "ISC",
+  "jest": {
+    "verbose": false,
+    "globalSetup": "./jest-setup.js",
+    "globalTeardown": "./jest-teardown.js",
+    "testEnvironment": "./jest-mongo.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cuid": "^2.1.6",
+    "express": "^4.16.4",
+    "is-valid-email": "0.0.4",
+    "mongodb": "^3.1.13",
+    "sanitize-html": "^1.20.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.4.0",
+    "dotenv": "^6.2.0",
+    "faker": "^4.1.0",
+    "jest": "^24.3.1",
+    "mongodb-memory-server": "^4.0.2"
+  }
+}
