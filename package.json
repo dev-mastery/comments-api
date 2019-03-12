@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
-    "test": "jest src --watchAll",
+    "test": "jest src --watch",
     "start": "babel-node ./src/index.js",
     "test:integration": "jest ./__test__ --runInBand"
   },
