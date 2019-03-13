@@ -9,7 +9,7 @@ export default function makeFakeComment (overrides) {
     modified: new Date().toJSON(),
     inReplyToCommentId: Id.makeId(),
     onPostId: Id.makeId(),
-    published: faker.random.boolean(),
+    published: true,
     ...overrides
   }
 }

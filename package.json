@@ -28,6 +28,7 @@
     "express": "^4.16.4",
     "is-valid-email": "0.0.4",
     "mongodb": "^3.1.13",
+    "p-reduce": "^2.0.0",
     "sanitize-html": "^1.20.0"
   },
   "devDependencies": {

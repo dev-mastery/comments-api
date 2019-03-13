@@ -10,9 +10,10 @@ export default function makeCommentsDb ({ makeDb }) {
     remove,
     update
   })
-  async function findAll () {
+  async function findAll ({ publishedOnly = true } = {}) {
     const db = await makeDb()
-    const result = await db.collection('comments').find({})
+    const query = publishedOnly ? { published: true } : {}
+    const result = await db.collection('comments').find(query)
     return (await result.toArray()).map(({ _id: id, ...found }) => ({
       id,
       ...found
@@ -36,11 +37,12 @@ export default function makeCommentsDb ({ makeDb }) {
       ...found
     }))
   }
-  async function findReplies ({ commentId }) {
+  async function findReplies ({ commentId, publishedOnly = true }) {
     const db = await makeDb()
-    const result = await db
-      .collection('comments')
-      .find({ inReplyToCommentId: commentId })
+    const query = publishedOnly
+      ? { published: true, inReplyToCommentId: commentId }
+      : { inReplyToCommentId: commentId }
+    const result = await db.collection('comments').find(query)
     return (await result.toArray()).map(({ _id: id, ...found }) => ({
       id,
       ...found
@@ -54,6 +56,7 @@ export default function makeCommentsDb ({ makeDb }) {
     const { _id: id, ...insertedInfo } = result.ops[0]
     return { id, ...insertedInfo }
   }
+
   async function update ({ id: _id, ...commentInfo }) {
     const db = await makeDb()
     const result = await db
