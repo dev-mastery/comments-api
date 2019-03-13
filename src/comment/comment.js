@@ -11,8 +11,7 @@ function makeComment ({
   inReplyToCommentId,
   modified,
   onPostId,
-  published = false,
-  replies = []
+  published = false
 }) {
   if (!author || author.length < 2) {
     throw new Error(
@@ -44,42 +43,23 @@ function makeComment ({
   if (contents.length < 2) {
     throw new Error('Comment contains no usable content.')
   }
-  id = id || Id.makeId()
 
-  function publish () {
-    published = true
+  function markDeleted () {
+    contents = 'deleted'
+    author = 'deleted'
   }
-
-  function unPublish () {
-    published = false
-  }
-
-  function isPublished () {
-    return published
-  }
-
-  function getReplies () {
-    return Object.freeze(replies)
-  }
-
-  function addReplies (repliesToAdd) {
-    replies.concat(repliesToAdd)
-  }
-  created = created || new Date().toJSON()
-  modified = modified || new Date().toJSON()
 
   return Object.freeze({
-    addReplies,
-    author,
-    contents,
-    created,
-    getReplies,
-    id,
-    inReplyToCommentId,
-    modified,
-    onPostId,
-    isPublished,
-    publish,
-    unPublish
+    getAuthor: () => author,
+    getContents: () => contents,
+    getCreated: () => created || new Date().toJSON(),
+    getId: () => id || Id.makeId(),
+    getInReplyToCommentId: () => inReplyToCommentId,
+    getIsPublished: () => published,
+    getModified: () => modified || new Date().toJSON(),
+    getOnPostId: () => onPostId,
+    markDeleted,
+    publish: () => (published = true),
+    unPublish: () => (published = false)
   })
 }

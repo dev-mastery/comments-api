@@ -36,31 +36,31 @@ describe('comment', () => {
   it('can create an id', () => {
     const noId = makeFakeComment({ id: undefined })
     const comment = makeComment(noId)
-    expect(comment.id).toBeDefined()
+    expect(comment.getId()).toBeDefined()
   })
   it('can be published', () => {
     const unpublished = makeFakeComment({ published: false })
     const comment = makeComment(unpublished)
-    expect(comment.isPublished()).toBe(false)
+    expect(comment.getIsPublished()).toBe(false)
     comment.publish()
-    expect(comment.isPublished()).toBe(true)
+    expect(comment.getIsPublished()).toBe(true)
   })
   it('can be unpublished', () => {
     const unpublished = makeFakeComment({ published: true })
     const comment = makeComment(unpublished)
-    expect(comment.isPublished()).toBe(true)
+    expect(comment.getIsPublished()).toBe(true)
     comment.unPublish()
-    expect(comment.isPublished()).toBe(false)
+    expect(comment.getIsPublished()).toBe(false)
   })
   it('is created now', () => {
     const noCreationDate = makeFakeComment({ created: undefined })
     expect(noCreationDate.created).not.toBeDefined()
-    expect(makeComment(noCreationDate).created).toBeDefined()
+    expect(makeComment(noCreationDate).getCreated()).toBeDefined()
   })
   it('is modified now', () => {
     const noModifiedDate = makeFakeComment({ modified: undefined })
     expect(noModifiedDate.modified).not.toBeDefined()
-    expect(makeComment(noModifiedDate).modified).toBeDefined()
+    expect(makeComment(noModifiedDate).getModified()).toBeDefined()
   })
   it('sanitizes its contents', () => {
     const sane = makeComment({
@@ -75,10 +75,17 @@ describe('comment', () => {
       contents: '<script>All your base are belong to us!</script>'
     })
 
-    expect(sane.contents).toBe('<p>This is fine</p>')
-    expect(insane.contents).toBe('<p>but this is ok</p>')
+    expect(sane.getContents()).toBe('<p>This is fine</p>')
+    expect(insane.getContents()).toBe('<p>but this is ok</p>')
     expect(() => makeComment(totallyInsane)).toThrow(
       'Comment contains no usable content.'
     )
+  })
+  it('can be marked deleted', () => {
+    const fake = makeFakeComment()
+    const c = makeComment(fake)
+    c.markDeleted()
+    expect(c.getContents()).toBe('deleted')
+    expect(c.getAuthor()).toBe('deleted')
   })
 })
