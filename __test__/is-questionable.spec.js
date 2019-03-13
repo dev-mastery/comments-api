@@ -4,7 +4,7 @@ import noReview from './fixtures/moderation-api/no-review.json'
 import noClassification from './fixtures/moderation-api/no-classification.json'
 
 describe('Is Questionable', () => {
-  // only allowed 1 request per second.
+  // Content moderator API only allows 1 request per second.
   afterEach(done => setTimeout(() => done(), 1001))
   it('flags inappropriate content', async () => {
     const result = await isQuestionable(review.OriginalText)

@@ -13,6 +13,7 @@ describe('post comment', () => {
       return status < 500
     }
   })
+  // Content moderator API only allows 1 request per second.
   afterEach(done => setTimeout(() => done(), 1001))
 
   it('adds a comment to the database', async () => {
