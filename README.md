@@ -20,7 +20,7 @@ npm i
 ```
 
 #### 2. Modify the .env file
-Add your database details and your Content Moderator API key to the `.env` file.
+Save `sampledotenv` as `.env` and then add your database and Content Moderator API details.
 
 #### 3. Startup your MongoDB
 Usually this is just: `mongod` on the command line.
