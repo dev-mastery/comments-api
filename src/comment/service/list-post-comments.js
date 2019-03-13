@@ -1,4 +1,3 @@
-import makeComment from '../comment'
 import pReduce from 'p-reduce'
 export default function makeListPostComments ({ commentsDb }) {
   return async function listPostComments ({ postId } = {}) {
