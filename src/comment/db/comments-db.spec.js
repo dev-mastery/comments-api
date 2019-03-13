@@ -1,8 +1,6 @@
-import mongodb from 'mongodb'
 import makeDb, { closeDb, clearDb } from '../../../__test__/fixtures/db'
 import makeCommentsDb from './comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
-const MongoClient = mongodb.MongoClient
 
 describe('comments db', () => {
   let commentsDb
