@@ -1,4 +1,4 @@
-# Comments API
+# Code Walkthrough – Comments API
 
 This is the code from a Mastery Monday episode about using [Bob Martin's Clean Architecture model](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) to build a Micro Service in Node.js.
 
