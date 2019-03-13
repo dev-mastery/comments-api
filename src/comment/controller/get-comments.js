@@ -4,7 +4,6 @@ export default function makeGetComments ({ listPostComments }) {
       'Content-Type': 'application/json'
     }
     try {
-      console.log(httpRequest.query.postId)
       const postComments = await listPostComments({
         postId: httpRequest.query.postId
       })
