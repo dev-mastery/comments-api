@@ -12,7 +12,7 @@ describe('post comment controller', () => {
         'Content-Type': 'application/json'
       },
       statusCode: 201,
-      body: request.body
+      body: { posted: request.body }
     }
     const actual = await postComment(request)
     expect(actual).toEqual(expected)

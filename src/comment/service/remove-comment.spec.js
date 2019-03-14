@@ -2,6 +2,7 @@ import makeRemoveComment from './remove-comment'
 import makeCommentsDb from '../db/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeDb, { closeDb, clearDb } from '../../../__test__/fixtures/db'
+import makeComment from '../comment'
 
 describe('remove comment', () => {
   let commentsDb
@@ -34,18 +35,9 @@ describe('remove comment', () => {
     const notFound = await commentsDb.findById(fakeComment)
     expect(notFound).toBe(null)
   })
-  it('marks a comment with replies as "deleted"', async done => {
-    expect.assertions(2)
-    // Hey look a REAL (odious) mock!!
-    // TODO: replace with DB query
-    const editComment = c => {
-      expect(c.getAuthor()).toBe('deleted')
-      expect(c.getText()).toBe('deleted')
-      done()
-    }
+  it('marks a comment with replies as "deleted"', async () => {
     const removeComment = makeRemoveComment({
-      commentsDb,
-      editComment
+      commentsDb
     })
 
     const fakeComment = makeFakeComment()
@@ -56,5 +48,7 @@ describe('remove comment', () => {
     })
     await commentsDb.insert(fakeCommentReply)
     await removeComment(fakeComment)
+    const deleted = await commentsDb.findById(fakeComment)
+    expect(makeComment(deleted).isDeleted()).toBe(true)
   })
 })

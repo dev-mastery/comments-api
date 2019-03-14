@@ -39,14 +39,14 @@ function makeComment ({
     )
   }
 
-  const sanitizedText = sanitize(text)
+  let sanitizedText = sanitize(text)
   if (sanitizedText.length < 2) {
-    throw new Error('Comment contains no usable content.')
+    throw new Error('Comment contains no usable text.')
   }
 
   const deletedText = '.xX This comment has been deleted Xx.'
   function markDeleted () {
-    text = deletedText
+    sanitizedText = deletedText
     author = 'deleted'
   }
 
@@ -58,7 +58,7 @@ function makeComment ({
     getPostId: () => postId,
     getReplyToId: () => replyToId,
     getText: () => sanitizedText,
-    isDeleted: () => text === deletedText,
+    isDeleted: () => sanitizedText === deletedText,
     isPublished: () => published,
     markDeleted,
     publish: () => (published = true),

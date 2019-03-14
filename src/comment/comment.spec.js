@@ -1,17 +1,23 @@
 import makeFakeComment from '../../__test__/fixtures/comment'
 import makeComment from './comment'
 describe('comment', () => {
-  it('must have an author', () => {
-    const comment = makeFakeComment({ author: null })
+  it('must have either an id or an author', () => {
+    expect.assertions(2)
+    const comment = makeFakeComment({ id: undefined, author: null })
     expect(() => makeComment(comment)).toThrow(
       'Comment must contain an "author" property that is at least 2 characters long.'
     )
+    const valid = makeFakeComment({ author: null })
+    expect(() => makeComment(valid)).not.toThrow()
   })
-  it('must have valid post id', () => {
-    const comment = makeFakeComment({ postId: null })
+  it('must have either an id or a valid post id', () => {
+    expect.assertions(2)
+    const comment = makeFakeComment({ id: undefined, postId: null })
     expect(() => makeComment(comment)).toThrow(
       'Comment must contain an "postId".'
     )
+    const valid = makeFakeComment({ postId: null })
+    expect(() => makeComment(valid)).not.toThrow()
   })
   it('must have valid text', () => {
     const comment = makeFakeComment({ text: null })
@@ -78,14 +84,15 @@ describe('comment', () => {
     expect(sane.getText()).toBe('<p>This is fine</p>')
     expect(insane.getText()).toBe('<p>but this is ok</p>')
     expect(() => makeComment(totallyInsane)).toThrow(
-      'Comment contains no usable content.'
+      'Comment contains no usable text.'
     )
   })
   it('can be marked deleted', () => {
     const fake = makeFakeComment()
     const c = makeComment(fake)
     c.markDeleted()
-    expect(c.getText()).toBe('deleted')
+    expect(c.isDeleted()).toBe(true)
+    expect(c.getText()).toBe('.xX This comment has been deleted Xx.')
     expect(c.getAuthor()).toBe('deleted')
   })
 })

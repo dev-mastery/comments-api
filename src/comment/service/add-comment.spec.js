@@ -1,9 +1,9 @@
-import makeUpsertComment from './upsert-comment'
+import makeAddComment from './add-comment'
 import makeCommentsDb from '../db/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeDb, { closeDb, clearDb } from '../../../__test__/fixtures/db'
 
-describe('modify comment', () => {
+describe('add comment', () => {
   let commentsDb
   beforeEach(() => {
     commentsDb = makeCommentsDb({ makeDb })
@@ -16,51 +16,31 @@ describe('modify comment', () => {
     await closeDb()
     return true
   })
-  it('inserts and updates comments in the database', async () => {
-    expect.assertions(2)
+  it('inserts comments in the database', async () => {
     const newComment = makeFakeComment()
-    const upsertComment = makeUpsertComment({
+    const addComment = makeAddComment({
       commentsDb,
       isQuestionable: () => !newComment.published
     })
-    const inserted = await upsertComment({
-      commentInfo: newComment,
-      action: 'insert'
-    })
+    const inserted = await addComment(newComment)
     expect(inserted).toMatchObject(newComment)
-
-    const modifiedComment = makeFakeComment({
-      id: newComment.id,
-      published: newComment.published
-    })
-    const updated = await upsertComment({
-      commentInfo: modifiedComment,
-      action: 'update'
-    })
-    expect(updated).toMatchObject(modifiedComment)
   })
   it('does not publish questionable comments', async () => {
-    const upsertComment = makeUpsertComment({
+    const addComment = makeAddComment({
       commentsDb,
       isQuestionable: () => true
     })
     const inappropriate = makeFakeComment({ text: 'What is this #!@*' })
-    const inserted = await upsertComment({
-      commentInfo: inappropriate,
-      action: 'insert'
-    })
+    const inserted = await addComment(inappropriate)
     expect(inserted.published).toBe(false)
   })
   it('publishes safe comments', async () => {
-    const upsertComment = makeUpsertComment({
+    const addComment = makeAddComment({
       commentsDb,
       isQuestionable: () => false
     })
     const appropriare = makeFakeComment({ text: 'What a lovely post' })
-    const inserted = await upsertComment({
-      commentInfo: appropriare,
-      action: 'insert'
-    })
+    const inserted = await addComment(appropriare)
     expect(inserted.published).toBe(true)
   })
 })

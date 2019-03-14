@@ -16,7 +16,7 @@ describe('put comment controller', () => {
         'Content-Type': 'application/json'
       },
       statusCode: 200,
-      body: request.body
+      body: { put: request.body }
     }
     const actual = await putComment(request)
     expect(actual).toEqual(expected)
