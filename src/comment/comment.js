@@ -21,9 +21,9 @@ export default function makeComment ({
 
   return Object.freeze({
     getAuthor: () => author,
-    getCreated: () => created || new Date().toJSON(),
+    getCreated: () => created || new Date(),
     getId: () => id || Id.makeId(),
-    getModified: () => modified || new Date().toJSON(),
+    getModified: () => modified || new Date(),
     getPostId: () => postId,
     getReplyToId: () => replyToId,
     getText: () => sanitizedText,
