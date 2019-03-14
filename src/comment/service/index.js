@@ -2,7 +2,7 @@
 import makeAddComment from './add-comment'
 import makeEditComment from './edit-comment'
 import makeRemoveComment from './remove-comment'
-import makeListPostComments from './list-post-comments'
+import makeListComments from './list-comments'
 import commentsDb from '../db'
 import isQuestionable from '../../helpers/is-questionable'
 
@@ -10,15 +10,15 @@ import isQuestionable from '../../helpers/is-questionable'
 
 const addComment = makeAddComment({ commentsDb, isQuestionable })
 const editComment = makeEditComment({ commentsDb, isQuestionable })
-const listPostComments = makeListPostComments({ commentsDb })
+const listComments = makeListComments({ commentsDb })
 const removeComment = makeRemoveComment({ commentsDb })
 
 const commentService = Object.freeze({
   addComment,
   editComment,
-  listPostComments,
+  listComments,
   removeComment
 })
 
 export default commentService
-export { addComment, editComment, listPostComments, removeComment }
+export { addComment, editComment, listComments, removeComment }

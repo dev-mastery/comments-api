@@ -1,6 +1,6 @@
 import pReduce from 'p-reduce'
-export default function makeListPostComments ({ commentsDb }) {
-  return async function listPostComments ({ postId } = {}) {
+export default function makeListComments ({ commentsDb }) {
+  return async function listComments ({ postId } = {}) {
     if (!postId) {
       throw new Error('You must supply a post id.')
     }

@@ -1,7 +1,7 @@
 import {
   addComment,
   editComment,
-  listPostComments,
+  listComments,
   removeComment
 } from '../service'
 import makeDeleteComment from './delete-comment'
@@ -12,7 +12,7 @@ import notFound from './not-found'
 
 const deleteComment = makeDeleteComment({ removeComment })
 const getComments = makeGetComments({
-  listPostComments
+  listComments
 })
 const postComment = makePostComment({ addComment })
 const putComment = makePutComment({ editComment })

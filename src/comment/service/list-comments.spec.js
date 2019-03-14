@@ -1,4 +1,4 @@
-import makeGetComments from './list-post-comments'
+import makeGetComments from './list-comments'
 import makeCommentsDb from '../db/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeDb from '../../../__test__/fixtures/db'

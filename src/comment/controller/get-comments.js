@@ -1,10 +1,10 @@
-export default function makeGetComments ({ listPostComments }) {
+export default function makeGetComments ({ listComments }) {
   return async function getComments (httpRequest) {
     const headers = {
       'Content-Type': 'application/json'
     }
     try {
-      const postComments = await listPostComments({
+      const postComments = await listComments({
         postId: httpRequest.query.postId
       })
       return {
