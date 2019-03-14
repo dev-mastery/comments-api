@@ -5,7 +5,7 @@ import {
   getComments,
   notFound,
   postComment,
-  putComment
+  patchComment
 } from './comment/controller'
 import makeCallback from './helpers/express-callback'
 
@@ -14,8 +14,8 @@ app.use(bodyParser.json())
 app.post('/comments', makeCallback(postComment))
 app.delete('/comments/:id', makeCallback(deleteComment))
 app.delete('/comments', makeCallback(deleteComment))
-app.put('/comments/:id', makeCallback(putComment))
-app.put('/comments', makeCallback(putComment))
+app.patch('/comments/:id', makeCallback(patchComment))
+app.patch('/comments', makeCallback(patchComment))
 app.get('/comments', makeCallback(getComments))
 app.use(makeCallback(notFound))
 

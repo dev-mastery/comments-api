@@ -1,12 +1,9 @@
-// import makeUpsertComment from './upsert-comment'
 import makeAddComment from './add-comment'
 import makeEditComment from './edit-comment'
 import makeRemoveComment from './remove-comment'
 import makeListComments from './list-comments'
 import commentsDb from '../db'
 import isQuestionable from '../../helpers/is-questionable'
-
-// const upsertComment = makeUpsertComment({ commentsDb, isQuestionable })
 
 const addComment = makeAddComment({ commentsDb, isQuestionable })
 const editComment = makeEditComment({ commentsDb, isQuestionable })

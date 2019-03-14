@@ -11,7 +11,6 @@ export default function makePostComment ({ addComment }) {
         body: { posted }
       }
     } catch (e) {
-      console.log(e)
       return {
         headers,
         statusCode: 400,

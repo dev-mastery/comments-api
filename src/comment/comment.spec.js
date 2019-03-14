@@ -10,6 +10,7 @@ describe('comment', () => {
     const valid = makeFakeComment({ author: null })
     expect(() => makeComment(valid)).not.toThrow()
   })
+
   it('must have either an id or a valid post id', () => {
     expect.assertions(2)
     const comment = makeFakeComment({ id: undefined, postId: null })
@@ -19,6 +20,7 @@ describe('comment', () => {
     const valid = makeFakeComment({ postId: null })
     expect(() => makeComment(valid)).not.toThrow()
   })
+
   it('must have valid text', () => {
     const comment = makeFakeComment({ text: null })
     expect(() => makeComment(comment)).toThrow(

@@ -5,18 +5,7 @@ export default function makeListComments ({ commentsDb }) {
       throw new Error('You must supply a post id.')
     }
     const topLevel = await commentsDb.findByPostId({ postId })
-    const comments = await pReduce(
-      topLevel,
-      async (graph, comment) => {
-        comment.replies = await commentsDb.findReplies({
-          commentId: comment.id
-        })
-        await nest(comment.replies)
-        graph.push(comment)
-        return graph
-      },
-      []
-    )
+    const comments = await nest(topLevel)
     return comments
 
     async function nest (replies) {

@@ -1,10 +1,10 @@
-import makePutComment from './put-comment'
+import makePatchComment from './patch-comment'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 
 describe('put comment controller', () => {
   it('successfully puts a comment', async () => {
     const fakeComment = makeFakeComment()
-    const putComment = makePutComment({ editComment: c => c })
+    const patchComment = makePatchComment({ editComment: c => c })
     const request = {
       params: {
         id: fakeComment.id
@@ -18,12 +18,12 @@ describe('put comment controller', () => {
       statusCode: 200,
       body: { put: request.body }
     }
-    const actual = await putComment(request)
+    const actual = await patchComment(request)
     expect(actual).toEqual(expected)
   })
   it('reports user errors', async () => {
     const fakeComment = makeFakeComment()
-    const putComment = makePutComment({
+    const patchComment = makePatchComment({
       editComment: () => {
         throw Error('Pow!')
       }
@@ -41,7 +41,7 @@ describe('put comment controller', () => {
       statusCode: 400,
       body: { error: 'Pow!' }
     }
-    const actual = await putComment(request)
+    const actual = await patchComment(request)
     expect(actual).toEqual(expected)
   })
 })
