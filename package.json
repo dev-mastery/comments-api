@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "babel src -d dist",
+    "clean": "rimraf dist",
     "test": "jest src --watch",
-    "start": "babel-node ./src/index.js",
+    "start": "npm run clean && npm run build && cd dist && node index.js",
+    "dev": "nodemon --exec babel-node ./src/index.js",
     "test:integration": "jest ./__test__ --runInBand"
   },
   "keywords": [
@@ -46,6 +48,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "faker": "^4.1.0",
     "jest": "^24.3.1",
-    "mongodb-memory-server": "^4.0.2"
+    "mongodb-memory-server": "^4.0.2",
+    "nodemon": "^1.18.10",
+    "rimraf": "^2.6.3"
   }
 }
