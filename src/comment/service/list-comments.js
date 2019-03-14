@@ -3,19 +3,19 @@ export default function makeListComments ({ commentsDb }) {
     if (!postId) {
       throw new Error('You must supply a post id.')
     }
-    const topLevel = await commentsDb.findByPostId({
+    const comments = await commentsDb.findByPostId({
       postId,
       omitReplies: false
     })
-    const comments = await nest(topLevel)
-    return comments
+    const nestedComments = nest(comments)
+    return nestedComments
 
-    async function nest (replies) {
-      if (replies.length === 0) {
-        return replies
+    function nest (comments) {
+      if (comments.length === 0) {
+        return comments
       }
-      return replies.reduce((nested, comment) => {
-        comment.replies = replies.filter(
+      return comments.reduce((nested, comment) => {
+        comment.replies = comments.filter(
           reply => reply.replyToId === comment.id
         )
         nest(comment.replies)
