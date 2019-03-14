@@ -8,9 +8,10 @@ export default function makePostComment ({ addComment }) {
       return {
         headers,
         statusCode: 201,
-        body: posted
+        body: { posted }
       }
     } catch (e) {
+      console.log(e)
       return {
         headers,
         statusCode: 400,

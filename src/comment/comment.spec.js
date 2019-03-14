@@ -8,23 +8,23 @@ describe('comment', () => {
     )
   })
   it('must have valid post id', () => {
-    const comment = makeFakeComment({ onPostId: null })
+    const comment = makeFakeComment({ postId: null })
     expect(() => makeComment(comment)).toThrow(
-      'Comment must contain an "onPostId".'
+      'Comment must contain an "postId".'
     )
   })
-  it('must have valid contents', () => {
-    const comment = makeFakeComment({ contents: null })
+  it('must have valid text', () => {
+    const comment = makeFakeComment({ text: null })
     expect(() => makeComment(comment)).toThrow(
-      'Comment must contain a "contents" property that is at least 2 characters long.'
+      'Comment must contain a "text" property that is at least 2 characters long.'
     )
   })
   it('can be in reply to another comment', () => {
-    const comment = makeFakeComment({ inReplyToCommentId: 'invalid' })
+    const comment = makeFakeComment({ replyToId: 'invalid' })
     expect(() => makeComment(comment)).toThrow(
-      'If supplied. Comment must contain an "inReplyToCommentId" property that is a valid cuid.'
+      'If supplied. Comment must contain an "replyToId" property that is a valid cuid.'
     )
-    const notInReply = makeFakeComment({ inReplyToCommentId: undefined })
+    const notInReply = makeFakeComment({ replyToId: undefined })
     expect(() => makeComment(notInReply)).not.toThrow()
   })
   it('can have an id', () => {
@@ -41,16 +41,16 @@ describe('comment', () => {
   it('can be published', () => {
     const unpublished = makeFakeComment({ published: false })
     const comment = makeComment(unpublished)
-    expect(comment.getIsPublished()).toBe(false)
+    expect(comment.isPublished()).toBe(false)
     comment.publish()
-    expect(comment.getIsPublished()).toBe(true)
+    expect(comment.isPublished()).toBe(true)
   })
   it('can be unpublished', () => {
     const unpublished = makeFakeComment({ published: true })
     const comment = makeComment(unpublished)
-    expect(comment.getIsPublished()).toBe(true)
+    expect(comment.isPublished()).toBe(true)
     comment.unPublish()
-    expect(comment.getIsPublished()).toBe(false)
+    expect(comment.isPublished()).toBe(false)
   })
   it('is created now', () => {
     const noCreationDate = makeFakeComment({ created: undefined })
@@ -62,21 +62,21 @@ describe('comment', () => {
     expect(noModifiedDate.modified).not.toBeDefined()
     expect(makeComment(noModifiedDate).getModified()).toBeDefined()
   })
-  it('sanitizes its contents', () => {
+  it('sanitizes its text', () => {
     const sane = makeComment({
-      ...makeFakeComment({ contents: '<p>This is fine</p>' })
+      ...makeFakeComment({ text: '<p>This is fine</p>' })
     })
     const insane = makeComment({
       ...makeFakeComment({
-        contents: '<script>This is not so fine</script><p>but this is ok</p>'
+        text: '<script>This is not so fine</script><p>but this is ok</p>'
       })
     })
     const totallyInsane = makeFakeComment({
-      contents: '<script>All your base are belong to us!</script>'
+      text: '<script>All your base are belong to us!</script>'
     })
 
-    expect(sane.getContents()).toBe('<p>This is fine</p>')
-    expect(insane.getContents()).toBe('<p>but this is ok</p>')
+    expect(sane.getText()).toBe('<p>This is fine</p>')
+    expect(insane.getText()).toBe('<p>but this is ok</p>')
     expect(() => makeComment(totallyInsane)).toThrow(
       'Comment contains no usable content.'
     )
@@ -85,7 +85,7 @@ describe('comment', () => {
     const fake = makeFakeComment()
     const c = makeComment(fake)
     c.markDeleted()
-    expect(c.getContents()).toBe('deleted')
+    expect(c.getText()).toBe('deleted')
     expect(c.getAuthor()).toBe('deleted')
   })
 })

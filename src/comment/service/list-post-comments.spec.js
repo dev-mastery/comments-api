@@ -14,34 +14,34 @@ describe('get comments', () => {
     expect(getComments()).rejects.toThrow('You must supply a post id.')
   })
   xit('gets all comments', async () => {
-    const firstComment = makeFakeComment({ inReplyToCommentId: null })
+    const firstComment = makeFakeComment({ replyToId: null })
     const secondComment = makeFakeComment({
-      inReplyToCommentId: null,
-      onPostId: firstComment.onPostId
+      replyToId: null,
+      postId: firstComment.postId
     })
     const thirdComment = makeFakeComment({
-      inReplyToCommentId: null,
-      onPostId: firstComment.onPostId
+      replyToId: null,
+      postId: firstComment.postId
     })
-    const replyToFirstComment = makeFakeComment({
-      inReplyToCommentId: firstComment.id,
-      onPostId: firstComment.onPostId
+    const replyToIdFirstComment = makeFakeComment({
+      replyToId: firstComment.id,
+      postId: firstComment.postId
     })
     const anotherReplyToFirstComment = makeFakeComment({
-      inReplyToCommentId: firstComment.id,
-      onPostId: firstComment.onPostId
+      replyToId: firstComment.id,
+      postId: firstComment.postId
     })
-    const replyToSecondComment = makeFakeComment({
-      inReplyToCommentId: secondComment.id,
-      onPostId: firstComment.onPostId
+    const replyToIdSecondComment = makeFakeComment({
+      replyToId: secondComment.id,
+      postId: firstComment.postId
     })
     const comments = [
       firstComment,
       secondComment,
       thirdComment,
-      replyToFirstComment,
+      replyToIdFirstComment,
       anotherReplyToFirstComment,
-      replyToSecondComment
+      replyToIdSecondComment
     ]
 
     const inserted = await Promise.all(comments.map(commentsDb.insert))
@@ -49,12 +49,12 @@ describe('get comments', () => {
     const expectedGraph = [
       {
         ...firstComment,
-        replies: [replyToFirstComment, anotherReplyToFirstComment]
+        replies: [replyToIdFirstComment, anotherReplyToFirstComment]
       },
-      { ...secondComment, replies: [replyToSecondComment] },
+      { ...secondComment, replies: [replyToIdSecondComment] },
       { ...thirdComment, replies: [] }
     ]
-    const actualGraph = await getComments({ postId: firstComment.onPostId })
+    const actualGraph = await getComments({ postId: firstComment.postId })
     expect(actualGraph).toEqual(expectedGraph)
 
     // return Promise.all(comments.map(commentsDb.remove))

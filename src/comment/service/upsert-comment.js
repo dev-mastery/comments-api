@@ -3,7 +3,7 @@ export default function makeUpsertComment ({ commentsDb, isQuestionable }) {
   return async function upsertComment ({ commentInfo, action }) {
     const comment = makeComment(commentInfo)
 
-    const shouldModerate = await isQuestionable(comment.contents)
+    const shouldModerate = await isQuestionable(comment.getText())
     if (shouldModerate) {
       comment.unPublish()
     } else {
@@ -12,14 +12,14 @@ export default function makeUpsertComment ({ commentsDb, isQuestionable }) {
 
     const dbCommand = commentsDb[action]
     return dbCommand({
-      id: comment.id,
-      author: comment.author,
-      contents: comment.contents,
-      created: comment.created,
-      modified: comment.modified,
-      inReplyToCommentId: comment.inReplyToCommentId,
+      id: comment.getId(),
+      author: comment.getAuthor(),
+      text: comment.getText(),
+      created: comment.getCreated(),
+      modified: comment.getModified(),
+      replyToId: comment.getReplyToId(),
       published: comment.isPublished(),
-      onPostId: comment.onPostId
+      postId: comment.getPostId()
     })
   }
 }

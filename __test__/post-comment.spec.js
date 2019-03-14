@@ -32,18 +32,18 @@ describe('post comment', () => {
     expect(response.status).toBe(400)
     expect(response.data.error).toBeDefined()
   })
-  it('requires comment to contain contents', async () => {
+  it('requires comment to contain text', async () => {
     const response = await axios.post(
       '/comments',
-      makeFakeComment({ contents: undefined })
+      makeFakeComment({ text: undefined })
     )
     expect(response.status).toBe(400)
     expect(response.data.error).toBeDefined()
   })
-  it('requires comment to contain a valid onPostId', async () => {
+  it('requires comment to contain a valid postId', async () => {
     const response = await axios.post(
       '/comments',
-      makeFakeComment({ onPostId: undefined })
+      makeFakeComment({ postId: undefined })
     )
     expect(response.status).toBe(400)
     expect(response.data.error).toBeDefined()
@@ -51,14 +51,14 @@ describe('post comment', () => {
   it('scrubs malicious content', async () => {
     const response = await axios.post(
       '/comments',
-      makeFakeComment({ contents: '<script>attack!</script><p>hello!</p>' })
+      makeFakeComment({ text: '<script>attack!</script><p>hello!</p>' })
     )
     expect(response.status).toBe(201)
-    expect(response.data.contents).toBe('<p>hello!</p>')
+    expect(response.data.text).toBe('<p>hello!</p>')
     return commentsDb.remove(response.data)
   })
   it("won't publish profanity", async () => {
-    const profane = makeFakeComment({ contents: 'You suck!' })
+    const profane = makeFakeComment({ text: 'You suck!' })
     const response = await axios.post('/comments', profane)
     expect(response.status).toBe(201)
     expect(response.data.published).toBe(false)

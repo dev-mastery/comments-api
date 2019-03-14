@@ -8,8 +8,8 @@ export default function makePutComment ({ editComment }) {
       const put = await editComment(commentInfo)
       return {
         headers,
-        statusCode: 200,
-        body: put
+        statusCode: put == null ? 404 : 200,
+        body: { put } || { error: 'Comment not found.' }
       }
     } catch (e) {
       return {

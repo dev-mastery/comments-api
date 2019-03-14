@@ -4,11 +4,11 @@ export default function makeFakeComment (overrides) {
   return {
     id: Id.makeId(),
     author: faker.name.findName(),
-    contents: faker.lorem.paragraph(3),
+    text: faker.lorem.paragraph(3),
     created: faker.date.recent(),
     modified: new Date().toJSON(),
-    inReplyToCommentId: Id.makeId(),
-    onPostId: Id.makeId(),
+    replyToId: Id.makeId(),
+    postId: Id.makeId(),
     published: true,
     ...overrides
   }

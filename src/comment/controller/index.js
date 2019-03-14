@@ -1,19 +1,29 @@
-import { addComment, editComment, listPostComments } from '../service'
+import {
+  addComment,
+  editComment,
+  listPostComments,
+  removeComment
+} from '../service'
+import makeDeleteComment from './delete-comment'
+import makeGetComments from './get-comments'
 import makePostComment from './post-comment'
 import makePutComment from './put-comment'
-import makeGetComments from './get-comments'
+import notFound from './not-found'
 
-const postComment = makePostComment({ addComment })
-const putComment = makePutComment({ editComment })
+const deleteComment = makeDeleteComment({ removeComment })
 const getComments = makeGetComments({
   listPostComments
 })
+const postComment = makePostComment({ addComment })
+const putComment = makePutComment({ editComment })
 
 const commentController = Object.freeze({
+  deleteComment,
+  getComments,
+  notFound,
   postComment,
-  putComment,
-  getComments
+  putComment
 })
 
 export default commentController
-export { postComment, putComment, getComments }
+export { deleteComment, getComments, notFound, postComment, putComment }

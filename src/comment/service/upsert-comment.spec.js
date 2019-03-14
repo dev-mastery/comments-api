@@ -44,7 +44,7 @@ describe('modify comment', () => {
       commentsDb,
       isQuestionable: () => true
     })
-    const inappropriate = makeFakeComment({ contents: 'What is this #!@*' })
+    const inappropriate = makeFakeComment({ text: 'What is this #!@*' })
     const inserted = await upsertComment({
       commentInfo: inappropriate,
       action: 'insert'
@@ -56,7 +56,7 @@ describe('modify comment', () => {
       commentsDb,
       isQuestionable: () => false
     })
-    const appropriare = makeFakeComment({ contents: 'What a lovely post' })
+    const appropriare = makeFakeComment({ text: 'What a lovely post' })
     const inserted = await upsertComment({
       commentInfo: appropriare,
       action: 'insert'

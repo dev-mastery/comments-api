@@ -5,59 +5,61 @@ export default makeComment
 
 function makeComment ({
   author,
-  contents,
   created,
   id,
-  inReplyToCommentId,
   modified,
-  onPostId,
-  published = false
+  postId,
+  published = false,
+  replyToId,
+  text
 }) {
-  if (!author || author.length < 2) {
+  if (id && !Id.isValidId(id)) {
+    throw new Error('Invalid id.')
+  }
+
+  if (!id && (!author || author.length < 2)) {
     throw new Error(
       'Comment must contain an "author" property that is at least 2 characters long.'
     )
   }
 
-  if (!onPostId) {
-    throw new Error('Comment must contain an "onPostId".')
+  if (!id && !postId) {
+    throw new Error('Comment must contain an "postId".')
   }
 
-  if (!contents || contents.length < 2) {
+  if (!text || text.length < 2) {
     throw new Error(
-      'Comment must contain a "contents" property that is at least 2 characters long.'
+      'Comment must contain a "text" property that is at least 2 characters long.'
     )
   }
 
-  if (inReplyToCommentId && !Id.isValidId(inReplyToCommentId)) {
+  if (replyToId && !Id.isValidId(replyToId)) {
     throw new Error(
-      'If supplied. Comment must contain an "inReplyToCommentId" property that is a valid cuid.'
+      'If supplied. Comment must contain an "replyToId" property that is a valid cuid.'
     )
   }
 
-  if (id && !Id.isValidId(id)) {
-    throw new Error('Invalid id.')
-  }
-
-  contents = sanitize(contents)
-  if (contents.length < 2) {
+  const sanitizedText = sanitize(text)
+  if (sanitizedText.length < 2) {
     throw new Error('Comment contains no usable content.')
   }
 
+  const deletedText = '.xX This comment has been deleted Xx.'
   function markDeleted () {
-    contents = 'deleted'
+    text = deletedText
     author = 'deleted'
   }
 
   return Object.freeze({
     getAuthor: () => author,
-    getContents: () => contents,
     getCreated: () => created || new Date().toJSON(),
     getId: () => id || Id.makeId(),
-    getInReplyToCommentId: () => inReplyToCommentId,
-    getIsPublished: () => published,
     getModified: () => modified || new Date().toJSON(),
-    getOnPostId: () => onPostId,
+    getPostId: () => postId,
+    getReplyToId: () => replyToId,
+    getText: () => sanitizedText,
+    isDeleted: () => text === deletedText,
+    isPublished: () => published,
     markDeleted,
     publish: () => (published = true),
     unPublish: () => (published = false)
