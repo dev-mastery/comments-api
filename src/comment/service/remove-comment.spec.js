@@ -6,7 +6,7 @@ import makeComment from '../comment'
 
 describe('remove comment', () => {
   let commentsDb
-  beforeEach(() => {
+  beforeAll(() => {
     commentsDb = makeCommentsDb({ makeDb })
   })
   it('deletes a comment with no replies', async () => {

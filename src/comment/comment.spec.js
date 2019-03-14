@@ -97,4 +97,14 @@ describe('comment', () => {
     expect(c.getText()).toBe('.xX This comment has been deleted Xx.')
     expect(c.getAuthor()).toBe('deleted')
   })
+  it('includes a hash', () => {
+    const fakeComment = {
+      author: 'Bruce Wayne',
+      text: "I'm batman.",
+      postId: 'cjt65art5350vy000hm1rp3s9'
+    }
+    expect(makeComment(fakeComment).getHash()).toBe(
+      '9f45a9b5348cef54d047f23825d7577f'
+    )
+  })
 })

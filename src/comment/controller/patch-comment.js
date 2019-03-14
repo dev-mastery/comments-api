@@ -5,13 +5,22 @@ export default function makePatchComment ({ editComment }) {
     }
     try {
       const commentInfo = { ...httpRequest.body, id: httpRequest.params.id }
-      const put = await editComment(commentInfo)
+      const patch = await editComment(commentInfo)
       return {
         headers,
-        statusCode: put == null ? 404 : 200,
-        body: { put } || { error: 'Comment not found.' }
+        statusCode: patch == null ? 404 : 200,
+        body: { patch } || { error: 'Comment not found.' }
       }
     } catch (e) {
+      if (e.name === 'RangeError') {
+        return {
+          headers,
+          statusCode: 404,
+          body: {
+            error: e.message
+          }
+        }
+      }
       return {
         headers,
         statusCode: 400,

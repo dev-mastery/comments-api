@@ -1,4 +1,5 @@
 import sanitize from 'sanitize-html'
+import crypto from 'crypto'
 import Id from '../helpers/id'
 
 export default function makeComment ({
@@ -18,10 +19,18 @@ export default function makeComment ({
   validateReplyToId(replyToId)
   const deletedText = '.xX This comment has been deleted Xx.'
   let sanitizedText = sanitizeText(text)
+  const hash = crypto
+    .createHash('md5')
+    .update(
+      sanitizedText + (author || '') + (postId || '') + (replyToId || ''),
+      'utf-8'
+    )
+    .digest('hex')
 
   return Object.freeze({
     getAuthor: () => author,
     getCreated: () => created || new Date(),
+    getHash: () => hash,
     getId: () => id || Id.makeId(),
     getModified: () => modified || new Date(),
     getPostId: () => postId,

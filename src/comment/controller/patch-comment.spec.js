@@ -1,7 +1,7 @@
 import makePatchComment from './patch-comment'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 
-describe('put comment controller', () => {
+describe('patch comment controller', () => {
   it('successfully puts a comment', async () => {
     const fakeComment = makeFakeComment()
     const patchComment = makePatchComment({ editComment: c => c })
@@ -16,7 +16,7 @@ describe('put comment controller', () => {
         'Content-Type': 'application/json'
       },
       statusCode: 200,
-      body: { put: request.body }
+      body: { patch: request.body }
     }
     const actual = await patchComment(request)
     expect(actual).toEqual(expected)

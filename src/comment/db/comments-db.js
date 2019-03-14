@@ -3,6 +3,7 @@ import Id from '../../helpers/id'
 export default function makeCommentsDb ({ makeDb }) {
   return Object.freeze({
     findAll,
+    findByHash,
     findById,
     findByPostId,
     findReplies,
@@ -72,5 +73,15 @@ export default function makeCommentsDb ({ makeDb }) {
     const db = await makeDb()
     const result = await db.collection('comments').deleteOne({ _id })
     return result.deletedCount
+  }
+  async function findByHash (comment) {
+    const db = await makeDb()
+    const result = await db.collection('comments').find({ hash: comment.hash })
+    const found = await result.toArray()
+    if (found.length === 0) {
+      return null
+    }
+    const { _id: id, ...insertedInfo } = found[0]
+    return { id, ...insertedInfo }
   }
 }

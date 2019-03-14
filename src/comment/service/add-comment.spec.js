@@ -1,21 +1,14 @@
 import makeAddComment from './add-comment'
 import makeCommentsDb from '../db/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
-import makeDb, { closeDb, clearDb } from '../../../__test__/fixtures/db'
+import makeDb from '../../../__test__/fixtures/db'
 
 describe('add comment', () => {
   let commentsDb
-  beforeEach(() => {
+  beforeAll(() => {
     commentsDb = makeCommentsDb({ makeDb })
   })
-  afterEach(async () => {
-    await clearDb()
-    return true
-  })
-  afterAll(async () => {
-    await closeDb()
-    return true
-  })
+
   it('inserts comments in the database', async () => {
     const newComment = makeFakeComment()
     const addComment = makeAddComment({
@@ -42,5 +35,16 @@ describe('add comment', () => {
     const appropriare = makeFakeComment({ text: 'What a lovely post' })
     const inserted = await addComment(appropriare)
     expect(inserted.published).toBe(true)
+  })
+  it('is idempotent', async () => {
+    const addComment = makeAddComment({
+      commentsDb,
+      isQuestionable: () => false
+    })
+    const newComment = makeFakeComment({ id: undefined })
+    const insertOne = await addComment(newComment)
+    const insertTwo = await addComment(newComment)
+    expect(insertOne.id).toBeDefined()
+    expect(insertOne.id).toBe(insertTwo.id)
   })
 })

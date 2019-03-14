@@ -9,16 +9,6 @@ describe('comments db', () => {
     commentsDb = makeCommentsDb({ makeDb })
   })
 
-  afterEach(async () => {
-    await clearDb()
-    return true
-  })
-
-  afterAll(async () => {
-    await closeDb()
-    return true
-  })
-
   it('lists comments', async () => {
     const inserts = await Promise.all(
       [makeFakeComment(), makeFakeComment(), makeFakeComment()].map(
@@ -41,6 +31,17 @@ describe('comments db', () => {
     await commentsDb.insert(comment)
     const found = await commentsDb.findById(comment)
     expect(found).toEqual(comment)
+  })
+
+  it("finds a comment by it's hash", async () => {
+    // expect.assertions(2)
+    const fakeCommentOne = makeFakeComment()
+    const fakeCommentTwo = makeFakeComment()
+    const insertedOne = await commentsDb.insert(fakeCommentOne)
+    const insertedTwo = await commentsDb.insert(fakeCommentTwo)
+
+    expect(await commentsDb.findByHash(fakeCommentOne)).toEqual(insertedOne)
+    expect(await commentsDb.findByHash(fakeCommentTwo)).toEqual(insertedTwo)
   })
 
   it('updates a comment', async () => {
