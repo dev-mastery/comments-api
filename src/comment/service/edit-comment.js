@@ -12,21 +12,23 @@ export default function makeEditComment ({ commentsDb, isQuestionable }) {
     if (!existing) {
       throw new RangeError('Comment not found.')
     }
-    const comment = makeComment({ ...existing, ...changes })
-
+    const comment = makeComment({ ...existing, ...changes, modified: null })
+    if (comment.getHash() === existing.hash) {
+      return existing
+    }
     const shouldModerate = await isQuestionable(comment.getText())
     if (shouldModerate) {
       comment.unPublish()
     } else {
       comment.publish()
     }
-
-    return commentsDb.update({
+    const updated = await commentsDb.update({
       id: comment.getId(),
       published: comment.isPublished(),
       modified: comment.getModified(),
       text: comment.getText(),
       hash: comment.getHash()
     })
+    return { ...existing, ...updated }
   }
 }

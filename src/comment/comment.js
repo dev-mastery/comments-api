@@ -22,17 +22,21 @@ export default function makeComment ({
   const hash = crypto
     .createHash('md5')
     .update(
-      sanitizedText + (author || '') + (postId || '') + (replyToId || ''),
+      sanitizedText +
+        published +
+        (author || '') +
+        (postId || '') +
+        (replyToId || ''),
       'utf-8'
     )
     .digest('hex')
 
   return Object.freeze({
     getAuthor: () => author,
-    getCreated: () => created || new Date(),
+    getCreated: () => created || Date.parse(new Date().toUTCString()),
     getHash: () => hash,
     getId: () => id || Id.makeId(),
-    getModified: () => modified || new Date(),
+    getModified: () => modified || Date.parse(new Date().toUTCString()),
     getPostId: () => postId,
     getReplyToId: () => replyToId,
     getText: () => sanitizedText,

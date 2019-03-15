@@ -60,15 +60,19 @@ describe('comment', () => {
     comment.unPublish()
     expect(comment.isPublished()).toBe(false)
   })
-  it('is created now', () => {
+  it('is created now in UTC', () => {
     const noCreationDate = makeFakeComment({ created: undefined })
     expect(noCreationDate.created).not.toBeDefined()
-    expect(makeComment(noCreationDate).getCreated()).toBeDefined()
+    const d = makeComment(noCreationDate).getCreated()
+    expect(d).toBeDefined()
+    expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
-  it('is modified now', () => {
+  it('is modified now in UTC', () => {
     const noModifiedDate = makeFakeComment({ modified: undefined })
     expect(noModifiedDate.modified).not.toBeDefined()
-    expect(makeComment(noModifiedDate).getModified()).toBeDefined()
+    const d = makeComment(noModifiedDate).getCreated()
+    expect(d).toBeDefined()
+    expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
   it('sanitizes its text', () => {
     const sane = makeComment({
@@ -101,10 +105,12 @@ describe('comment', () => {
     const fakeComment = {
       author: 'Bruce Wayne',
       text: "I'm batman.",
-      postId: 'cjt65art5350vy000hm1rp3s9'
+      postId: 'cjt65art5350vy000hm1rp3s9',
+      published: true
     }
+    // md5 from: http://www.miraclesalad.com/webtools/md5.php
     expect(makeComment(fakeComment).getHash()).toBe(
-      '9f45a9b5348cef54d047f23825d7577f'
+      '7bb94f070d9305976b5381b7d3e8ad8a'
     )
   })
 })

@@ -16,6 +16,7 @@ export default function makeFakeComment (overrides) {
     .createHash('md5')
     .update(
       comment.text +
+        comment.published +
         (comment.author || '') +
         (comment.postId || '') +
         (comment.replyToId || ''),

@@ -1,20 +1,22 @@
 export default function makePatchComment ({ editComment }) {
   return async function patchComment (httpRequest) {
-    const headers = {
-      'Content-Type': 'application/json'
-    }
     try {
       const commentInfo = { ...httpRequest.body, id: httpRequest.params.id }
-      const patch = await editComment(commentInfo)
+      const patched = await editComment(commentInfo)
       return {
-        headers,
-        statusCode: patch == null ? 404 : 200,
-        body: { patch } || { error: 'Comment not found.' }
+        headers: {
+          'Content-Type': 'application/json',
+          'Last-Modified': new Date(patched.modified).toUTCString()
+        },
+        statusCode: 200,
+        body: { patched }
       }
     } catch (e) {
       if (e.name === 'RangeError') {
         return {
-          headers,
+          headers: {
+            'Content-Type': 'application/json'
+          },
           statusCode: 404,
           body: {
             error: e.message
@@ -22,7 +24,9 @@ export default function makePatchComment ({ editComment }) {
         }
       }
       return {
-        headers,
+        headers: {
+          'Content-Type': 'application/json'
+        },
         statusCode: 400,
         body: {
           error: e.message
