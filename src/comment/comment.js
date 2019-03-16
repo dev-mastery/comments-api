@@ -61,12 +61,9 @@ export default function makeComment ({
       if (!author) {
         throw new Error('Comment must have an author.')
       }
-      // if (!author.displayName) {
-      //   throw new Error('Comment author must have a display name.')
-      // }
       if (author.length < 2) {
         throw new Error(
-          "Comment author's display name must be longer than 2 characters."
+          "Comment author's name must be longer than 2 characters."
         )
       }
     }
