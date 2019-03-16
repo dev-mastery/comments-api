@@ -4,22 +4,31 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export default async function isQuestionable (content) {
+// TODO: add spam filtering as well.
+export default async function isQuestionable ({
+  text,
+  authorName,
+  authorEmail,
+  ip,
+  createdOn,
+  modifiedOn,
+  testOnly
+} = {}) {
   const callModerationApi = pipe(
     buildApiCommand,
     axios,
     normalizeApiResponse
   )
-  return callModerationApi(content).catch(e => {
+  return callModerationApi(text).catch(e => {
     console.log(e) // TODO: Error handling
-    return true // if the API is unavailable, we assume content is questionable
+    return true // if the API is unavailable, we assume text is questionable
   })
 }
 
-export function buildApiCommand (content) {
+export function buildApiCommand (text) {
   return {
     method: 'post',
-    data: content,
+    data: text,
     params: { classify: 'true' },
     headers: {
       'Content-Type': 'text/html',
