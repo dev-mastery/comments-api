@@ -11,6 +11,11 @@ import makeCallback from './helpers/express-callback'
 
 const app = express()
 app.use(bodyParser.json())
+// TODO: figure out DNT compliance.
+app.use((_, res, next) => {
+  res.set({ Tk: '!' })
+  next()
+})
 app.post('/comments', makeCallback(postComment))
 app.delete('/comments/:id', makeCallback(deleteComment))
 app.delete('/comments', makeCallback(deleteComment))
