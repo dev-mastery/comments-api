@@ -4,9 +4,9 @@ import Id from '../helpers/id'
 
 export default function makeComment ({
   author,
-  created,
+  createdOn,
   id,
-  modified,
+  modifiedOn,
   postId,
   published = false,
   replyToId,
@@ -32,11 +32,11 @@ export default function makeComment ({
     .digest('hex')
 
   return Object.freeze({
-    getAuthor: () => author,
-    getCreated: () => created || Date.parse(new Date().toUTCString()),
+    getAuthor: () => Object.freeze(author),
+    getCreated: () => createdOn || Date.parse(new Date().toUTCString()),
     getHash: () => hash,
     getId: () => id || Id.makeId(),
-    getModified: () => modified || Date.parse(new Date().toUTCString()),
+    getModifiedOn: () => modifiedOn || Date.parse(new Date().toUTCString()),
     getPostId: () => postId,
     getReplyToId: () => replyToId,
     getText: () => sanitizedText,
@@ -57,10 +57,18 @@ export default function makeComment ({
   }
 
   function validateAuthor (id, author) {
-    if (!id && (!author || author.length < 2)) {
-      throw new Error(
-        'Comment must contain an "author" property that is at least 2 characters long.'
-      )
+    if (!id) {
+      if (!author) {
+        throw new Error('Comment must have an author.')
+      }
+      if (!author.displayName) {
+        throw new Error('Comment author must have a display name.')
+      }
+      if (author.displayName.length < 2) {
+        throw new Error(
+          "Comment author's display name must be longer than 2 characters."
+        )
+      }
     }
   }
 

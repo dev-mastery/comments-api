@@ -4,9 +4,9 @@ import Id from '../../src/helpers/id'
 export default function makeFakeComment (overrides) {
   const comment = {
     author: faker.name.findName(),
-    created: faker.date.recent(),
+    createdOn: faker.date.recent(),
     id: Id.makeId(),
-    modified: new Date().toJSON(),
+    modifiedOn: new Date().toJSON(),
     postId: Id.makeId(),
     published: true,
     replyToId: Id.makeId(),

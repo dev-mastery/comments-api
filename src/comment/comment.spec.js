@@ -60,17 +60,17 @@ describe('comment', () => {
     comment.unPublish()
     expect(comment.isPublished()).toBe(false)
   })
-  it('is created now in UTC', () => {
-    const noCreationDate = makeFakeComment({ created: undefined })
-    expect(noCreationDate.created).not.toBeDefined()
+  it('is createdOn now in UTC', () => {
+    const noCreationDate = makeFakeComment({ createdOn: undefined })
+    expect(noCreationDate.createdOn).not.toBeDefined()
     const d = makeComment(noCreationDate).getCreated()
     expect(d).toBeDefined()
     expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
-  it('is modified now in UTC', () => {
-    const noModifiedDate = makeFakeComment({ modified: undefined })
-    expect(noModifiedDate.modified).not.toBeDefined()
-    const d = makeComment(noModifiedDate).getCreated()
+  it('is modifiedOn now in UTC', () => {
+    const noModifiedOnDate = makeFakeComment({ modifiedOn: undefined })
+    expect(noModifiedOnDate.modifiedOn).not.toBeDefined()
+    const d = makeComment(noModifiedOnDate).getCreated()
     expect(d).toBeDefined()
     expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
