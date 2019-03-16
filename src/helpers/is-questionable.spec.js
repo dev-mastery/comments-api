@@ -1,4 +1,7 @@
-import { buildApiCommand, normalizeApiResponse } from './is-questionable'
+import {
+  buildModerationApiCommand,
+  normalizeModerationApiResponse
+} from './is-questionable'
 import review from '../../__test__/fixtures/moderation-api/review.json'
 import noReview from '../../__test__/fixtures/moderation-api/no-review.json'
 import noClassification from '../../__test__/fixtures/moderation-api/no-classification.json'
@@ -6,7 +9,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 describe('Is Questionable', () => {
-  it('builds a valid API request', () => {
+  it('builds a valid Moderator API request', () => {
     const expected = {
       method: 'post',
       data: review.OriginalText,
@@ -17,15 +20,17 @@ describe('Is Questionable', () => {
       },
       url: process.env.DM_MODERATOR_API_URL
     }
-    expect(buildApiCommand(review.OriginalText)).toEqual(expected)
+    expect(buildModerationApiCommand(review.OriginalText)).toEqual(expected)
   })
   it('handles a review recommendation', () => {
-    expect(normalizeApiResponse({ data: review })).toBe(true)
+    expect(normalizeModerationApiResponse({ data: review })).toBe(true)
   })
   it('handles a no review recommendation', () => {
-    expect(normalizeApiResponse({ data: noReview })).toBe(false)
+    expect(normalizeModerationApiResponse({ data: noReview })).toBe(false)
   })
   it('handles the lack of any recommendation', () => {
-    expect(normalizeApiResponse({ data: noClassification })).toBe(true)
+    expect(normalizeModerationApiResponse({ data: noClassification })).toBe(
+      true
+    )
   })
 })

@@ -7,13 +7,16 @@ describe('Is Questionable', () => {
   // Content moderator API only allows 1 request per second.
   afterEach(done => setTimeout(() => done(), 1001))
   it('flags inappropriate content', async () => {
-    const result = await isQuestionable(review.OriginalText)
+    const result = await isQuestionable({ text: review.OriginalText })
     expect(result).toBe(true)
   })
   it('flags unintelligible content', async () => {
-    expect(await isQuestionable(noClassification.OriginalText)).toBe(true)
+    expect(await isQuestionable({ text: noClassification.OriginalText })).toBe(
+      true
+    )
   })
   it('accepts appropriate content', async () => {
-    expect(await isQuestionable(noReview.OriginalText)).toBe(false)
+    expect(await isQuestionable({ text: noReview.OriginalText })).toBe(false)
   })
+  it.todo('filters out spam')
 })
