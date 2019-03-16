@@ -6,9 +6,9 @@
   "scripts": {
     "build": "babel src -d dist",
     "clean": "rimraf dist",
-    "test": "jest src --watch",
-    "start": "npm run clean && npm run build && cd dist && node index.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
+    "start": "npm run clean && npm run build && cd dist && node index.js",
+    "test": "jest src --watch",
     "test:integration": "jest ./__test__ --runInBand"
   },
   "keywords": [
@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-inline-dotenv": "^1.2.2",
     "body-parser": "^1.18.3",
     "cuid": "^2.1.6",
     "express": "^4.16.4",
