@@ -5,10 +5,10 @@ dotenv.config()
 
 const MongoClient = mongodb.MongoClient
 const url = process.env.DM_DB_URL
-const dbName = 'dm_comments_api'
+const dbName = process.env.DM_DB_NAME
 const client = new MongoClient(url, { useNewUrlParser: true })
 
-async function makeDb () {
+export async function makeDb () {
   if (!client.isConnected()) {
     await client.connect()
   }
