@@ -26,6 +26,12 @@ Save `sampledotenv` as `.env` and then add your database and Content Moderator A
 Usually this is just: `mongod` on the command line.
 
 #### 4. Start the server
+To run in production mode where code is transpiled by Babel into a `dist` folder and run directly in `node`:
 ```bash
 npm start
+```
+
+To run in development mode where code is run by [babel-node](https://babeljs.io/docs/en/babel-node) via [nodemon](https://nodemon.io) and re-transpiled any time there is a change:
+```bash
+npm run dev
 ```
