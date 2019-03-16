@@ -51,4 +51,19 @@ describe('edit comment', () => {
     expect(edited.hash).toBeDefined()
     expect(inserted.hash).not.toBe(edited.hash)
   })
+  it('does not publish questionable comments', async () => {
+    const inserted = await commentsDb.insert(
+      makeFakeComment({ published: true })
+    )
+    expect(inserted.published).toBe(true)
+
+    const editComment = makeEditComment({
+      commentsDb,
+      isQuestionable: () => true
+    })
+    inserted.text = 'What is this #!@*'
+    const edited = await editComment(inserted)
+    expect(edited.published).toBe(false)
+    return commentsDb.remove(inserted)
+  })
 })
