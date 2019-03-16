@@ -1,4 +1,5 @@
 import makeComment from '../comment'
+import handleModeration from './handle-moderation'
 export default function makeEditComment ({ commentsDb, isQuestionable }) {
   return async function editComment ({ id, ...changes } = {}) {
     if (!id) {
@@ -12,22 +13,17 @@ export default function makeEditComment ({ commentsDb, isQuestionable }) {
     if (!existing) {
       throw new RangeError('Comment not found.')
     }
-    const comment = makeComment({ ...existing, ...changes, modified: null })
+    const comment = makeComment({ ...existing, ...changes, modifiedOn: null })
     if (comment.getHash() === existing.hash) {
       return existing
     }
-    const shouldModerate = await isQuestionable(comment.getText())
-    if (shouldModerate) {
-      comment.unPublish()
-    } else {
-      comment.publish()
-    }
+    const moderated = await handleModeration({ isQuestionable, comment })
     const updated = await commentsDb.update({
-      id: comment.getId(),
-      published: comment.isPublished(),
-      modified: comment.getModified(),
-      text: comment.getText(),
-      hash: comment.getHash()
+      id: moderated.getId(),
+      published: moderated.isPublished(),
+      modifiedOn: moderated.getModifiedOn(),
+      text: moderated.getText(),
+      hash: moderated.getHash()
     })
     return { ...existing, ...updated }
   }

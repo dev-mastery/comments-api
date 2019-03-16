@@ -42,12 +42,12 @@ describe('edit comment', () => {
       isQuestionable: () => false
     })
     const fakeComment = makeFakeComment({
-      modified: undefined
+      modifiedOn: undefined
     })
     const inserted = await commentsDb.insert(fakeComment)
     const edited = await editComment({ ...fakeComment, text: 'changed' })
     expect(edited.text).toBe('changed')
-    expect(inserted.modified).not.toBe(edited.modified)
+    expect(inserted.modifiedOn).not.toBe(edited.modifiedOn)
     expect(edited.hash).toBeDefined()
     expect(inserted.hash).not.toBe(edited.hash)
   })

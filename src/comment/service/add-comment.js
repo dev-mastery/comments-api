@@ -1,4 +1,5 @@
 import makeComment from '../comment'
+import handleModeration from './handle-moderation'
 export default function makeAddComment ({ commentsDb, isQuestionable }) {
   return async function addComment (commentInfo) {
     const comment = makeComment(commentInfo)
@@ -6,23 +7,19 @@ export default function makeAddComment ({ commentsDb, isQuestionable }) {
     if (exists) {
       return exists
     }
-    const shouldModerate = await isQuestionable(comment.getText())
-    if (shouldModerate) {
-      comment.unPublish()
-    } else {
-      comment.publish()
-    }
+
+    const moderated = await handleModeration({ isQuestionable, comment })
 
     return commentsDb.insert({
-      id: comment.getId(),
-      author: comment.getAuthor(),
-      text: comment.getText(),
-      created: comment.getCreated(),
-      hash: comment.getHash(),
-      modified: comment.getModified(),
-      replyToId: comment.getReplyToId(),
-      published: comment.isPublished(),
-      postId: comment.getPostId()
+      id: moderated.getId(),
+      author: moderated.getAuthor().displayName,
+      text: moderated.getText(),
+      createdOn: moderated.getCreated(),
+      hash: moderated.getHash(),
+      modifiedOn: moderated.getModifiedOn(),
+      replyToId: moderated.getReplyToId(),
+      published: moderated.isPublished(),
+      postId: moderated.getPostId()
     })
   }
 }
