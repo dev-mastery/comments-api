@@ -5,12 +5,13 @@ export default function makePostComment ({ addComment }) {
       return {
         headers: {
           'Content-Type': 'application/json',
-          'Last-Modified': new Date(posted.modified).toUTCString()
+          'Last-Modified': new Date(posted.modifiedOn).toUTCString()
         },
         statusCode: 201,
         body: { posted }
       }
     } catch (e) {
+      console.log(e)
       return {
         headers: {
           'Content-Type': 'application/json'

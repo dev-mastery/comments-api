@@ -14,7 +14,7 @@ describe('patch comment controller', () => {
     const expected = {
       headers: {
         'Content-Type': 'application/json',
-        'Last-Modified': new Date(fakeComment.modified).toUTCString()
+        'Last-Modified': new Date(fakeComment.modifiedOn).toUTCString()
       },
       statusCode: 200,
       body: { patched: request.body }

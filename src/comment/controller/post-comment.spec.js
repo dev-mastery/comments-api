@@ -10,7 +10,7 @@ describe('post comment controller', () => {
     const expected = {
       headers: {
         'Content-Type': 'application/json',
-        'Last-Modified': new Date(request.body.modified).toUTCString()
+        'Last-Modified': new Date(request.body.modifiedOn).toUTCString()
       },
       statusCode: 201,
       body: { posted: request.body }

@@ -67,7 +67,7 @@ export default function makeCommentsDb ({ makeDb }) {
     const result = await db
       .collection('comments')
       .updateOne({ _id }, { $set: { ...commentInfo } })
-    return result.modifiedCount > 0 ? { id: _id, ...commentInfo } : null
+    return result.modifiedOnCount > 0 ? { id: _id, ...commentInfo } : null
   }
   async function remove ({ id: _id }) {
     const db = await makeDb()

@@ -6,7 +6,7 @@ export default function makePatchComment ({ editComment }) {
       return {
         headers: {
           'Content-Type': 'application/json',
-          'Last-Modified': new Date(patched.modified).toUTCString()
+          'Last-Modified': new Date(patched.modifiedOn).toUTCString()
         },
         statusCode: 200,
         body: { patched }
