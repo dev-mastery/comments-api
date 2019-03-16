@@ -11,7 +11,11 @@ export default function makePostComment ({ addComment }) {
         body: { posted }
       }
     } catch (e) {
-      console.log(e)
+      // TODO: Error logging
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(e)
+      }
+
       return {
         headers: {
           'Content-Type': 'application/json'

@@ -13,6 +13,10 @@ export default function makeGetComments ({ listComments }) {
         body: postComments
       }
     } catch (e) {
+      // TODO: Error logging
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(e)
+      }
       return {
         headers,
         statusCode: 400,

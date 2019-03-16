@@ -11,6 +11,10 @@ export default function makeDeleteComment ({ removeComment }) {
         body: { deleted }
       }
     } catch (e) {
+      // TODO: Error logging
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(e)
+      }
       return {
         headers,
         statusCode: 400,

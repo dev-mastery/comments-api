@@ -12,6 +12,10 @@ export default function makePatchComment ({ editComment }) {
         body: { patched }
       }
     } catch (e) {
+      // TODO: Error logging
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(e)
+      }
       if (e.name === 'RangeError') {
         return {
           headers: {
