@@ -4,9 +4,7 @@ describe('comment', () => {
   it('must have either an id or an author', () => {
     expect.assertions(2)
     const comment = makeFakeComment({ id: undefined, author: null })
-    expect(() => makeComment(comment)).toThrow(
-      'Comment must contain an "author" property that is at least 2 characters long.'
-    )
+    expect(() => makeComment(comment)).toThrow('Comment must have an author.')
     const valid = makeFakeComment({ author: null })
     expect(() => makeComment(valid)).not.toThrow()
   })

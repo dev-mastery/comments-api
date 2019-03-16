@@ -12,7 +12,7 @@ export default function makeAddComment ({ commentsDb, isQuestionable }) {
 
     return commentsDb.insert({
       id: moderated.getId(),
-      author: moderated.getAuthor().displayName,
+      author: moderated.getAuthor(),
       text: moderated.getText(),
       createdOn: moderated.getCreated(),
       hash: moderated.getHash(),

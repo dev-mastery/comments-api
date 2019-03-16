@@ -47,9 +47,9 @@ describe('comments db', () => {
   it('updates a comment', async () => {
     const comment = makeFakeComment()
     await commentsDb.insert(comment)
-    comment.author = 'changed'
+    comment.text = 'changed'
     const updated = await commentsDb.update(comment)
-    return expect(updated.author).toBe('changed')
+    return expect(updated.text).toBe('changed')
   })
 
   it('finds all comments for a post', async () => {

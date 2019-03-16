@@ -32,7 +32,7 @@ export default function makeComment ({
     .digest('hex')
 
   return Object.freeze({
-    getAuthor: () => Object.freeze(author),
+    getAuthor: () => author,
     getCreated: () => createdOn || Date.parse(new Date().toUTCString()),
     getHash: () => hash,
     getId: () => id || Id.makeId(),
@@ -61,10 +61,10 @@ export default function makeComment ({
       if (!author) {
         throw new Error('Comment must have an author.')
       }
-      if (!author.displayName) {
-        throw new Error('Comment author must have a display name.')
-      }
-      if (author.displayName.length < 2) {
+      // if (!author.displayName) {
+      //   throw new Error('Comment author must have a display name.')
+      // }
+      if (author.length < 2) {
         throw new Error(
           "Comment author's display name must be longer than 2 characters."
         )
