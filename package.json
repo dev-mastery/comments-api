@@ -6,10 +6,11 @@
   "scripts": {
     "build": "babel src -d dist",
     "clean": "rimraf dist",
+    "db": "babel-node ./db/index.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
-    "start": "npm run clean && npm run build && cd dist && node index.js",
+    "start": "npm run clean && npm run build && npm run db && cd dist && node index.js",
     "test": "jest src --watch",
-    "test:integration": "jest ./__test__ --runInBand"
+    "test:e2e": "jest ./__test__ --runInBand"
   },
   "keywords": [
     "Clean Architecture",
