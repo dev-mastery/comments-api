@@ -1,4 +1,4 @@
-import makeComment from '../comment'
+import makeComment from '../entities/comment'
 import handleModeration from './handle-moderation'
 export default function makeAddComment ({ commentsDb, isQuestionable }) {
   return async function addComment (commentInfo) {

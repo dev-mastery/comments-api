@@ -2,8 +2,8 @@ import makeAddComment from './add-comment'
 import makeEditComment from './edit-comment'
 import makeRemoveComment from './remove-comment'
 import makeListComments from './list-comments'
-import commentsDb from '../db'
-import isQuestionable from '../../helpers/is-questionable'
+import commentsDb from '../data-access'
+import isQuestionable from '../adapters/is-questionable'
 
 const addComment = makeAddComment({ commentsDb, isQuestionable })
 const editComment = makeEditComment({ commentsDb, isQuestionable })

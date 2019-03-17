@@ -3,7 +3,7 @@ import {
   editComment,
   listComments,
   removeComment
-} from '../service'
+} from '../use-cases'
 import makeDeleteComment from './delete-comment'
 import makeGetComments from './get-comments'
 import makePostComment from './post-comment'

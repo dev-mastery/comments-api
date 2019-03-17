@@ -2,9 +2,9 @@ import {
   buildModerationApiCommand,
   normalizeModerationApiResponse
 } from './is-questionable'
-import review from '../../__test__/fixtures/moderation-api/review.json'
-import noReview from '../../__test__/fixtures/moderation-api/no-review.json'
-import noClassification from '../../__test__/fixtures/moderation-api/no-classification.json'
+import review from '../../../__test__/fixtures/moderation-api/review.json'
+import noReview from '../../../__test__/fixtures/moderation-api/no-review.json'
+import noClassification from '../../../__test__/fixtures/moderation-api/no-classification.json'
 import dotenv from 'dotenv'
 dotenv.config()
 

@@ -1,4 +1,4 @@
-import makeDb, { closeDb, clearDb } from '../../../__test__/fixtures/db'
+import makeDb from '../../../__test__/fixtures/db'
 import makeCommentsDb from './comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 

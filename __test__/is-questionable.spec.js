@@ -1,4 +1,4 @@
-import isQuestionable from '../src/helpers/is-questionable'
+import isQuestionable from '../src/comments-api/adapters/is-questionable'
 import review from './fixtures/moderation-api/review.json'
 import noReview from './fixtures/moderation-api/no-review.json'
 import noClassification from './fixtures/moderation-api/no-classification.json'

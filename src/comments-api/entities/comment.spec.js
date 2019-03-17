@@ -1,4 +1,4 @@
-import makeFakeComment from '../../__test__/fixtures/comment'
+import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeComment from './comment'
 describe('comment', () => {
   it('must have either an id or an author', () => {

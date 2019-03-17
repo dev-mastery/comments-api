@@ -6,8 +6,8 @@ import {
   notFound,
   postComment,
   patchComment
-} from './comment/controller'
-import makeCallback from './helpers/express-callback'
+} from './comments-api/controllers'
+import makeCallback from './comments-api/adapters/express-callback'
 
 const app = express()
 app.use(bodyParser.json())

@@ -1,6 +1,6 @@
 import faker from 'faker'
 import crypto from 'crypto'
-import Id from '../../src/helpers/id'
+import Id from '../../src/utils/id'
 export default function makeFakeComment (overrides) {
   const comment = {
     author: faker.name.findName(),

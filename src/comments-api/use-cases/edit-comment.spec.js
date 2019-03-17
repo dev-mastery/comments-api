@@ -1,6 +1,6 @@
 import makeEditComment from './edit-comment'
 import makeFakeComment from '../../../__test__/fixtures/comment'
-import makeCommentsDb from '../db/comments-db'
+import makeCommentsDb from '../data-access/comments-db'
 import makeDb from '../../../__test__/fixtures/db'
 
 describe('edit comment', () => {

@@ -1,8 +1,8 @@
 import makeRemoveComment from './remove-comment'
-import makeCommentsDb from '../db/comments-db'
+import makeCommentsDb from '../data-access/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeDb from '../../../__test__/fixtures/db'
-import makeComment from '../comment'
+import makeComment from '../entities/comment'
 
 describe('remove comment', () => {
   let commentsDb
@@ -15,7 +15,7 @@ describe('remove comment', () => {
     })
 
     const fakeComment = makeFakeComment()
-    const insert = await commentsDb.insert(fakeComment)
+    await commentsDb.insert(fakeComment)
 
     const found = await commentsDb.findById(fakeComment)
     expect(found).toEqual(fakeComment)

@@ -1,5 +1,5 @@
 import makeAddComment from './add-comment'
-import makeCommentsDb from '../db/comments-db'
+import makeCommentsDb from '../data-access/comments-db'
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeDb from '../../../__test__/fixtures/db'
 

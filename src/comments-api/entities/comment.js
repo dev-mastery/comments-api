@@ -1,6 +1,6 @@
 import sanitize from 'sanitize-html'
 import crypto from 'crypto'
-import Id from '../helpers/id'
+import Id from '../../utils/id'
 
 export default function makeComment ({
   author,

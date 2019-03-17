@@ -1,5 +1,5 @@
 import axios from 'axios'
-import pipe from './pipe'
+import pipe from '../../utils/pipe'
 import dotenv from 'dotenv'
 
 dotenv.config()
