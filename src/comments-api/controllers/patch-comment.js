@@ -1,8 +1,14 @@
 export default function makePatchComment ({ editComment }) {
   return async function patchComment (httpRequest) {
     try {
-      const commentInfo = { ...httpRequest.body, id: httpRequest.params.id }
-      const patched = await editComment(commentInfo)
+      const { source = {}, ...commentInfo } = httpRequest.body
+      source.ip = httpRequest.ip
+      const toEdit = {
+        ...commentInfo,
+        source,
+        id: httpRequest.params.id
+      }
+      const patched = await editComment(toEdit)
       return {
         headers: {
           'Content-Type': 'application/json',

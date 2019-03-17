@@ -1,24 +1,17 @@
 import makeFakeComment from '../../../__test__/fixtures/comment'
 import makeComment from './comment'
 describe('comment', () => {
-  it('must have either an id or an author', () => {
-    expect.assertions(2)
-    const comment = makeFakeComment({ id: undefined, author: null })
+  it('must have an author', () => {
+    const comment = makeFakeComment({ author: null })
     expect(() => makeComment(comment)).toThrow('Comment must have an author.')
-    const valid = makeFakeComment({ author: null })
-    expect(() => makeComment(valid)).not.toThrow()
   })
 
-  it('must have either an id or a valid post id', () => {
-    expect.assertions(2)
-    const comment = makeFakeComment({ id: undefined, postId: null })
+  it('must have a valid post id', () => {
+    const comment = makeFakeComment({ postId: null })
     expect(() => makeComment(comment)).toThrow(
       'Comment must contain an "postId".'
     )
-    const valid = makeFakeComment({ postId: null })
-    expect(() => makeComment(valid)).not.toThrow()
   })
-
   it('must have valid text', () => {
     const comment = makeFakeComment({ text: null })
     expect(() => makeComment(comment)).toThrow(
@@ -28,7 +21,7 @@ describe('comment', () => {
   it('can be in reply to another comment', () => {
     const comment = makeFakeComment({ replyToId: 'invalid' })
     expect(() => makeComment(comment)).toThrow(
-      'If supplied. Comment must contain an "replyToId" property that is a valid cuid.'
+      'If supplied. Comment must contain a "replyToId" property that is a valid cuid.'
     )
     const notInReply = makeFakeComment({ replyToId: undefined })
     expect(() => makeComment(notInReply)).not.toThrow()
@@ -61,14 +54,14 @@ describe('comment', () => {
   it('is createdOn now in UTC', () => {
     const noCreationDate = makeFakeComment({ createdOn: undefined })
     expect(noCreationDate.createdOn).not.toBeDefined()
-    const d = makeComment(noCreationDate).getCreated()
+    const d = makeComment(noCreationDate).getCreatedOn()
     expect(d).toBeDefined()
     expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
   it('is modifiedOn now in UTC', () => {
     const noModifiedOnDate = makeFakeComment({ modifiedOn: undefined })
     expect(noModifiedOnDate.modifiedOn).not.toBeDefined()
-    const d = makeComment(noModifiedOnDate).getCreated()
+    const d = makeComment(noModifiedOnDate).getCreatedOn()
     expect(d).toBeDefined()
     expect(new Date(d).toUTCString().substring(26)).toBe('GMT')
   })
@@ -104,11 +97,38 @@ describe('comment', () => {
       author: 'Bruce Wayne',
       text: "I'm batman.",
       postId: 'cjt65art5350vy000hm1rp3s9',
-      published: true
+      published: true,
+      source: { ip: '127.0.0.1' }
     }
     // md5 from: http://www.miraclesalad.com/webtools/md5.php
     expect(makeComment(fakeComment).getHash()).toBe(
       '7bb94f070d9305976b5381b7d3e8ad8a'
     )
+  })
+  it('must have a source', () => {
+    const noSource = makeFakeComment({ source: undefined })
+    expect(() => makeComment(noSource)).toThrow('Comment must have a source.')
+  })
+  it('must have a source ip', () => {
+    const noIp = makeFakeComment({ source: { ip: undefined } })
+    expect(() => makeComment(noIp)).toThrow(
+      'Comment source must contain an IP.'
+    )
+  })
+  it('can have a source browser', () => {
+    const withBrowser = makeFakeComment()
+    expect(
+      makeComment(withBrowser)
+        .getSource()
+        .getBrowser()
+    ).toBe(withBrowser.source.browser)
+  })
+  it('can have a source referrer', () => {
+    const withRef = makeFakeComment()
+    expect(
+      makeComment(withRef)
+        .getSource()
+        .getReferrer()
+    ).toBe(withRef.source.referrer)
   })
 })

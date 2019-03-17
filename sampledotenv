@@ -3,6 +3,11 @@ DM_BASE_URL=http://localhost:3000/
 DM_DB_URL=mongodb://localhost:27017
 DM_DB_NAME=dm_comments_api
 DM_MODERATOR_API_URL=https://<your-region>.api.cognitive.microsoft.com/contentmoderator/moderate/v1.0/ProcessText/Screen
-DM_MODERATOR_API_KEY=xxxxx
+
 # Signup for a free Moderator key at: 
 # https://contentmoderator.cognitive.microsoft.com
+DM_MODERATOR_API_KEY=xxxxx
+
+# Signup for a free Akismet Spam API key at: 
+# https://akismet.com/development/api/#getting-started
+DM_SPAM_API_URL=https://xxxxxxx.rest.akismet.com/1.1/comment-check

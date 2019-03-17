@@ -1,28 +1,29 @@
 import faker from 'faker'
-import crypto from 'crypto'
+import md5 from '../../src/utils/md5'
 import Id from '../../src/utils/id'
 export default function makeFakeComment (overrides) {
   const comment = {
     author: faker.name.findName(),
-    createdOn: faker.date.recent(),
+    createdOn: Date.now(),
     id: Id.makeId(),
-    modifiedOn: new Date().toJSON(),
+    modifiedOn: Date.now(),
     postId: Id.makeId(),
     published: true,
     replyToId: Id.makeId(),
-    text: faker.lorem.paragraph(3)
+    text: faker.lorem.paragraph(3),
+    source: {
+      ip: faker.internet.ip(),
+      browser: faker.internet.userAgent(),
+      referrer: faker.internet.url()
+    }
   }
-  comment.hash = crypto
-    .createHash('md5')
-    .update(
-      comment.text +
-        comment.published +
-        (comment.author || '') +
-        (comment.postId || '') +
-        (comment.replyToId || ''),
-      'utf-8'
-    )
-    .digest('hex')
+  comment.hash = md5(
+    comment.text +
+      comment.published +
+      (comment.author || '') +
+      (comment.postId || '') +
+      (comment.replyToId || '')
+  )
 
   return {
     ...comment,

@@ -9,17 +9,22 @@ export default function makeAddComment ({ commentsDb, isQuestionable }) {
     }
 
     const moderated = await handleModeration({ isQuestionable, comment })
-
+    const commentSource = moderated.getSource()
     return commentsDb.insert({
-      id: moderated.getId(),
       author: moderated.getAuthor(),
-      text: moderated.getText(),
-      createdOn: moderated.getCreated(),
+      createdOn: moderated.getCreatedOn(),
       hash: moderated.getHash(),
+      id: moderated.getId(),
       modifiedOn: moderated.getModifiedOn(),
-      replyToId: moderated.getReplyToId(),
+      postId: moderated.getPostId(),
       published: moderated.isPublished(),
-      postId: moderated.getPostId()
+      replyToId: moderated.getReplyToId(),
+      source: {
+        ip: commentSource.getIp(),
+        browser: commentSource.getBrowser(),
+        referrer: commentSource.getReferrer()
+      },
+      text: moderated.getText()
     })
   }
 }

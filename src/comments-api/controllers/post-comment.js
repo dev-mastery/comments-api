@@ -1,7 +1,12 @@
 export default function makePostComment ({ addComment }) {
   return async function postComment (httpRequest) {
     try {
-      const posted = await addComment(httpRequest.body)
+      const { source = {}, ...commentInfo } = httpRequest.body
+      source.ip = httpRequest.ip
+      const posted = await addComment({
+        ...commentInfo,
+        source
+      })
       return {
         headers: {
           'Content-Type': 'application/json',

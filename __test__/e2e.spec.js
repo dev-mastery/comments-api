@@ -118,12 +118,12 @@ describe('Comments API', () => {
         {
           ...comment1,
           replies: [],
-          createdOn: inserts[0].createdOn.toJSON()
+          createdOn: inserts[0].createdOn
         },
         {
           ...comment2,
           replies: [],
-          createdOn: inserts[1].createdOn.toJSON()
+          createdOn: inserts[1].createdOn
         }
       ]
       const response = await axios.get('/comments/', {
@@ -155,28 +155,28 @@ describe('Comments API', () => {
           replies: [
             {
               ...reply1,
-              createdOn: inserts[1].createdOn.toJSON(),
+              createdOn: inserts[1].createdOn,
               replies: [
                 {
                   ...reply2,
-                  createdOn: inserts[2].createdOn.toJSON(),
+                  createdOn: inserts[2].createdOn,
                   replies: []
                 }
               ]
             }
           ],
-          createdOn: inserts[0].createdOn.toJSON()
+          createdOn: inserts[0].createdOn
         },
         {
           ...comment2,
           replies: [],
-          createdOn: inserts[3].createdOn.toJSON()
+          createdOn: inserts[3].createdOn
         }
       ]
       const response = await axios.get('/comments/', {
         params: { postId: comment1.postId }
       })
-      // TODO: Fix flake. Why timeout? Mongo or promise?
+      // FIXME: Fix flake. Why timeout? Mongo or promise?
       setTimeout(async () => {
         expect(response.data[0].replies.length).toBe(1)
         expect(response.data[0].replies[0].replies.length).toBe(1)

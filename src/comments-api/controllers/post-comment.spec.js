@@ -4,8 +4,10 @@ import makeFakeComment from '../../../__test__/fixtures/comment'
 describe('post comment controller', () => {
   it('successfully posts a comment', async () => {
     const postComment = makePostComment({ addComment: c => c })
+    const comment = makeFakeComment()
     const request = {
-      body: makeFakeComment()
+      body: comment,
+      ip: comment.source.ip
     }
     const expected = {
       headers: {

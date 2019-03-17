@@ -9,6 +9,7 @@ Watch the episode below:
 * [Node JS](https://nodejs.org/en/)
 * [Mongo DB](https://www.mongodb.com)
 * [Azure Content Moderator account (free)](https://contentmoderator.cognitive.microsoft.com)
+* [Akismet Developer account (free)](https://akismet.com/development/api/#getting-started)
 
 ## Getting started
 
@@ -20,7 +21,7 @@ npm i
 ```
 
 #### 2. Modify the .env file
-Save `sampledotenv` as `.env` and then add your database and Content Moderator API details.
+Save `sampledotenv` as `.env` and then add your database and Content Moderator + Akismet API details.
 
 #### 3. Startup your MongoDB
 Usually this is just: `mongod` on the command line.
