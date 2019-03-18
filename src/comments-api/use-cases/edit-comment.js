@@ -1,6 +1,5 @@
 import makeComment from '../entities/comment'
-import handleModeration from './handle-moderation'
-export default function makeEditComment ({ commentsDb, isQuestionable }) {
+export default function makeEditComment ({ commentsDb, handleModeration }) {
   return async function editComment ({ id, ...changes } = {}) {
     if (!id) {
       throw new Error('You must supply an id.')
@@ -18,7 +17,7 @@ export default function makeEditComment ({ commentsDb, isQuestionable }) {
       console.log(comment)
       return existing
     }
-    const moderated = await handleModeration({ isQuestionable, comment })
+    const moderated = await handleModeration({ comment })
     const updated = await commentsDb.update({
       id: moderated.getId(),
       published: moderated.isPublished(),
