@@ -1,8 +1,7 @@
-# Code Walkthrough – Comments API
+# DevMastery Comments Microservice API
+To manage comments on various Dev Mastery properties.
 
-This is the code from a Mastery Monday episode about using [Bob Martin's Clean Architecture model](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) to build a Micro Service in Node.js.
-
-Watch the episode below:
+> **NOTE:** If you're looking for a version of the code as it was in the Mastery Monday episode, checkout the mastery-monday branch.
 
 ## Features
 * XSS Protection (via [sanitize-html](https://www.npmjs.com/package/sanitize-html))
@@ -12,14 +11,13 @@ Watch the episode below:
 
 ## Running Locally
 
-### Prerequisites
+#### Prerequisites
 * [Git](https://git-scm.com/downloads)
 * [Node JS](https://nodejs.org/en/)
 * [Mongo DB](https://www.mongodb.com)
 * [Azure Content Moderator account (free)](https://contentmoderator.cognitive.microsoft.com)
 * [Akismet Developer account (free)](https://akismet.com/development/api/#getting-started)
 
-### Getting Started
 
 #### 1. Clone the repo and install dependencies
 ```bash

@@ -3,6 +3,10 @@ export default function makePostComment ({ addComment }) {
     try {
       const { source = {}, ...commentInfo } = httpRequest.body
       source.ip = httpRequest.ip
+      source.browser = httpRequest.headers['User-Agent']
+      if (httpRequest.headers['Referer']) {
+        source.referrer = httpRequest.headers['Referer']
+      }
       const posted = await addComment({
         ...commentInfo,
         source
@@ -17,9 +21,7 @@ export default function makePostComment ({ addComment }) {
       }
     } catch (e) {
       // TODO: Error logging
-      if (process.env.NODE_ENV !== 'test') {
-        console.log(e)
-      }
+      console.log(e)
 
       return {
         headers: {

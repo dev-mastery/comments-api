@@ -1,9 +1,6 @@
 import axios from 'axios'
-import pipe from '../../utils/pipe'
-import dotenv from 'dotenv'
+import pipe from '@devmastery/pipe'
 import qs from 'querystring'
-
-dotenv.config()
 
 export default async function isQuestionable ({
   text,

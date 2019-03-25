@@ -13,7 +13,7 @@ describe('get comments', () => {
   it('requires a post id', () => {
     expect(getComments()).rejects.toThrow('You must supply a post id.')
   })
-  xit('gets all comments', async () => {
+  it('gets all comments', async () => {
     const firstComment = makeFakeComment({ replyToId: null })
     const secondComment = makeFakeComment({
       replyToId: null,
@@ -23,7 +23,7 @@ describe('get comments', () => {
       replyToId: null,
       postId: firstComment.postId
     })
-    const replyToIdFirstComment = makeFakeComment({
+    const replyToFirstComment = makeFakeComment({
       replyToId: firstComment.id,
       postId: firstComment.postId
     })
@@ -31,7 +31,7 @@ describe('get comments', () => {
       replyToId: firstComment.id,
       postId: firstComment.postId
     })
-    const replyToIdSecondComment = makeFakeComment({
+    const replyToSecondComment = makeFakeComment({
       replyToId: secondComment.id,
       postId: firstComment.postId
     })
@@ -39,24 +39,35 @@ describe('get comments', () => {
       firstComment,
       secondComment,
       thirdComment,
-      replyToIdFirstComment,
+      replyToFirstComment,
       anotherReplyToFirstComment,
-      replyToIdSecondComment
+      replyToSecondComment
     ]
-
-    const inserted = await Promise.all(comments.map(commentsDb.insert))
-
-    const expectedGraph = [
-      {
-        ...firstComment,
-        replies: [replyToIdFirstComment, anotherReplyToFirstComment]
-      },
-      { ...secondComment, replies: [replyToIdSecondComment] },
-      { ...thirdComment, replies: [] }
-    ]
+    await Promise.all(comments.map(commentsDb.insert))
     const actualGraph = await getComments({ postId: firstComment.postId })
-    expect(actualGraph).toEqual(expectedGraph)
 
-    // return Promise.all(comments.map(commentsDb.remove))
+    const firstCommentFromDb = actualGraph.filter(c => c.id === firstComment.id)
+    expect(firstCommentFromDb[0].replies.length).toBe(2)
+    expect(firstCommentFromDb[0].replies).toContainEqual({
+      ...replyToFirstComment,
+      replies: []
+    })
+    expect(firstCommentFromDb[0].replies).toContainEqual({
+      ...anotherReplyToFirstComment,
+      replies: []
+    })
+
+    const secondCommentFromDb = actualGraph.filter(
+      c => c.id === secondComment.id
+    )
+    expect(secondCommentFromDb[0].replies.length).toBe(1)
+    expect(secondCommentFromDb[0].replies).toContainEqual({
+      ...replyToSecondComment,
+      replies: []
+    })
+
+    const thirdCommentFromDb = actualGraph.filter(c => c.id === thirdComment.id)
+    expect(thirdCommentFromDb[0].replies.length).toBe(0)
+    return Promise.all(comments.map(commentsDb.remove))
   })
 })

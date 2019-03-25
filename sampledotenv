@@ -1,7 +1,7 @@
 # Save this file as .env and fill in the appropriate values
 DM_BASE_URL=http://localhost:3000/
-DM_DB_URL=mongodb://localhost:27017
-DM_DB_NAME=dm_comments_api
+DM_COMMENTS_DB_URL=mongodb://localhost:27017
+DM_COMMENTS_DB_NAME=dm_comments_api
 DM_MODERATOR_API_URL=https://<your-region>.api.cognitive.microsoft.com/contentmoderator/moderate/v1.0/ProcessText/Screen
 
 # Signup for a free Moderator key at: 

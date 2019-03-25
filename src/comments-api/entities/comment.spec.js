@@ -15,7 +15,7 @@ describe('comment', () => {
   it('must have valid text', () => {
     const comment = makeFakeComment({ text: null })
     expect(() => makeComment(comment)).toThrow(
-      'Comment must contain a "text" property that is at least 2 characters long.'
+      'Comment must contain a "text" property that is at least 1 character long.'
     )
   })
   it('can be in reply to another comment', () => {

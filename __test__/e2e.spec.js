@@ -6,7 +6,7 @@ dotenv.config()
 
 describe('Comments API', () => {
   beforeAll(() => {
-    axios.defaults.baseURL = process.env.DM_BASE_URL
+    axios.defaults.baseURL = process.env.DM_BASE_URL + process.env.DM_API_ROOT
     axios.defaults.headers.common['Content-Type'] = 'application/json'
     axios.defaults.validateStatus = function (status) {
       // Throw only if the status code is greater than or equal to 500
@@ -20,10 +20,10 @@ describe('Comments API', () => {
 
   describe('adding comments', () => {
     // Content moderator API only allows 1 request per second.
-    afterEach(done => setTimeout(() => done(), 1001))
+    beforeEach(done => setTimeout(() => done(), 1100))
     it('adds a comment to the database', async () => {
       const response = await axios.post(
-        '/comments',
+        '/comments/',
         makeFakeComment({
           id: undefined,
           text: 'Something safe and intelligible.'
@@ -83,7 +83,7 @@ describe('Comments API', () => {
   })
   describe('modfying comments', () => {
     // Content moderator API only allows 1 request per second.
-    afterEach(done => setTimeout(() => done(), 1001))
+    beforeEach(done => setTimeout(() => done(), 1100))
     it('modifies a comment', async () => {
       const comment = makeFakeComment({
         text: '<p>changed!</p>'

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel src -d dist",
+    "build": "npm run clean && babel src -d dist",
+    "now-build": "npm run build",
     "clean": "rimraf dist",
     "db": "babel-node ./db/index.js",
     "dev": "nodemon --exec babel-node ./src/index.js",
@@ -12,12 +13,8 @@
     "test": "jest src --watch",
     "test:e2e": "jest ./__test__ --runInBand"
   },
-  "keywords": [
-    "Clean Architecture",
-    "Mastery Monday"
-  ],
   "author": "Bill Sourour <bill@devmastery.com>",
-  "license": "ISC",
+  "license": "MIT",
   "jest": {
     "verbose": false,
     "globalSetup": "./jest-setup.js",
@@ -25,6 +22,7 @@
     "testEnvironment": "./jest-mongo.js"
   },
   "dependencies": {
+    "@devmastery/pipe": "^0.0.6",
     "axios": "^0.18.0",
     "babel-plugin-inline-dotenv": "^1.2.2",
     "body-parser": "^1.18.3",

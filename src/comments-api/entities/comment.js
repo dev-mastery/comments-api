@@ -14,14 +14,23 @@ export default function makeComment ({
   replyToId,
   text
 } = {}) {
-  validateId(id)
+  if (id) {
+    validateId(id)
+  } else {
+    id = Id.makeId()
+  }
+
   validateAuthor(author)
   validatePostId(postId)
   validateText(text)
   validateSource(source)
   validateReplyToId(replyToId)
-  const deletedText = '.xX This comment has been deleted Xx.'
-  let sanitizedText = sanitizeText(text)
+
+  let sanitizedText = sanitize(text).trim()
+  validateSanitizedText(sanitizedText)
+
+  const validSource = makeSource(source)
+
   const hash = md5(
     sanitizedText +
       published +
@@ -29,12 +38,14 @@ export default function makeComment ({
       (postId || '') +
       (replyToId || '')
   )
-  const validSource = makeSource(source)
+
+  const deletedText = '.xX This comment has been deleted Xx.'
+
   return Object.freeze({
     getAuthor: () => author,
     getCreatedOn: () => createdOn || Date.now(),
     getHash: () => hash,
-    getId: () => id || Id.makeId(),
+    getId: () => id,
     getModifiedOn: () => modifiedOn || Date.now(),
     getPostId: () => postId,
     getReplyToId: () => replyToId,
@@ -46,12 +57,16 @@ export default function makeComment ({
       sanitizedText = deletedText
       author = 'deleted'
     },
-    publish: () => (published = true),
-    unPublish: () => (published = false)
+    publish: () => {
+      published = true
+    },
+    unPublish: () => {
+      published = false
+    }
   })
 
   function validateId (id) {
-    if (id && !Id.isValidId(id)) {
+    if (!Id.isValidId(id)) {
       throw new Error('Invalid id.')
     }
   }
@@ -78,9 +93,9 @@ export default function makeComment ({
   }
 
   function validateText (text) {
-    if (!text || text.length < 2) {
+    if (!text || text.length < 1) {
       throw new Error(
-        'Comment must contain a "text" property that is at least 2 characters long.'
+        'Comment must contain a "text" property that is at least 1 character long.'
       )
     }
   }
@@ -93,11 +108,9 @@ export default function makeComment ({
     }
   }
 
-  function sanitizeText (text) {
-    const sanitized = sanitize(text)
-    if (sanitized.length < 2) {
+  function validateSanitizedText (sanitized) {
+    if (sanitized.length < 1) {
       throw new Error('Comment contains no usable text.')
     }
-    return sanitized
   }
 }

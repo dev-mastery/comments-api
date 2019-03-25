@@ -1,6 +1,5 @@
 import makeComment from '../entities/comment'
-import handleModeration from './handle-moderation'
-export default function makeAddComment ({ commentsDb, isQuestionable }) {
+export default function makeAddComment ({ commentsDb, handleModeration }) {
   return async function addComment (commentInfo) {
     const comment = makeComment(commentInfo)
     const exists = await commentsDb.findByHash({ hash: comment.getHash() })
@@ -8,7 +7,7 @@ export default function makeAddComment ({ commentsDb, isQuestionable }) {
       return exists
     }
 
-    const moderated = await handleModeration({ isQuestionable, comment })
+    const moderated = await handleModeration({ comment })
     const commentSource = moderated.getSource()
     return commentsDb.insert({
       author: moderated.getAuthor(),
