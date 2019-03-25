@@ -3,6 +3,10 @@ export default function makePatchComment ({ editComment }) {
     try {
       const { source = {}, ...commentInfo } = httpRequest.body
       source.ip = httpRequest.ip
+      source.browser = httpRequest.headers['User-Agent']
+      if (httpRequest.headers['Referer']) {
+        source.referrer = httpRequest.headers['Referer']
+      }
       const toEdit = {
         ...commentInfo,
         source,
@@ -19,9 +23,7 @@ export default function makePatchComment ({ editComment }) {
       }
     } catch (e) {
       // TODO: Error logging
-      if (process.env.NODE_ENV !== 'test') {
-        console.log(e)
-      }
+      console.log(e)
       if (e.name === 'RangeError') {
         return {
           headers: {

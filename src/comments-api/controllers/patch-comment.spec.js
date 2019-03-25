@@ -6,6 +6,11 @@ describe('patch comment controller', () => {
     const fakeComment = makeFakeComment()
     const patchComment = makePatchComment({ editComment: c => c })
     const request = {
+      headers: {
+        'Content-Type': 'application/json',
+        Referer: fakeComment.source.referrer,
+        'User-Agent': fakeComment.source.browser
+      },
       params: {
         id: fakeComment.id
       },
@@ -30,6 +35,11 @@ describe('patch comment controller', () => {
       }
     })
     const request = {
+      headers: {
+        'Content-Type': 'application/json',
+        Referer: fakeComment.source.referrer,
+        'User-Agent': fakeComment.source.browser
+      },
       params: {
         id: fakeComment.id
       },

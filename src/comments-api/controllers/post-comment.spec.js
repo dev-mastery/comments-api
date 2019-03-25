@@ -6,6 +6,11 @@ describe('post comment controller', () => {
     const postComment = makePostComment({ addComment: c => c })
     const comment = makeFakeComment()
     const request = {
+      headers: {
+        'Content-Type': 'application/json',
+        Referer: comment.source.referrer,
+        'User-Agent': comment.source.browser
+      },
       body: comment,
       ip: comment.source.ip
     }
@@ -26,8 +31,14 @@ describe('post comment controller', () => {
         throw Error('Pow!')
       }
     })
+    const fakeComment = makeFakeComment()
     const request = {
-      body: makeFakeComment()
+      headers: {
+        'Content-Type': 'application/json',
+        Referer: fakeComment.source.referrer,
+        'User-Agent': fakeComment.source.browser
+      },
+      body: fakeComment
     }
     const expected = {
       headers: {
