@@ -25,6 +25,9 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
     let sanitizedText = sanitize(text).trim()
     validateSanitizedText(sanitizedText)
 
+    createdOn = createdOn || Date.now()
+    modifiedOn = modifiedOn || Date.now()
+
     const validSource = makeSource(source)
 
     const hash = md5(
@@ -39,10 +42,10 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
 
     return Object.freeze({
       getAuthor: () => author,
-      getCreatedOn: () => createdOn || Date.now(),
+      getCreatedOn: () => createdOn,
       getHash: () => hash,
       getId: () => id,
-      getModifiedOn: () => modifiedOn || Date.now(),
+      getModifiedOn: () => modifiedOn,
       getPostId: () => postId,
       getReplyToId: () => replyToId,
       getSource: () => validSource,
