@@ -1,4 +1,4 @@
-import makeComment from '../entities/comment'
+import makeComment from '../comment'
 export default function makeAddComment ({ commentsDb, handleModeration }) {
   return async function addComment (commentInfo) {
     const comment = makeComment(commentInfo)

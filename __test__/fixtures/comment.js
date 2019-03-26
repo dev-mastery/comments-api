@@ -1,6 +1,19 @@
 import faker from 'faker'
-import md5 from '../../src/utils/md5'
-import Id from '../../src/utils/id'
+import cuid from 'cuid'
+import crypto from 'crypto'
+
+const Id = Object.freeze({
+  makeId: cuid,
+  isValidId: cuid.isCuid
+})
+
+function md5 (text) {
+  return crypto
+    .createHash('md5')
+    .update(text, 'utf-8')
+    .digest('hex')
+}
+
 export default function makeFakeComment (overrides) {
   const comment = {
     author: faker.name.findName(),

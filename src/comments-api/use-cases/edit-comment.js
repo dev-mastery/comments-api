@@ -1,4 +1,4 @@
-import makeComment from '../entities/comment'
+import makeComment from '../comment'
 export default function makeEditComment ({ commentsDb, handleModeration }) {
   return async function editComment ({ id, ...changes } = {}) {
     if (!id) {

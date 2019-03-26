@@ -1,4 +1,4 @@
-import makeComment from '../entities/comment'
+import makeComment from '../comment'
 export default function makeRemoveComment ({ commentsDb }) {
   return async function removeComment ({ id } = {}) {
     if (!id) {

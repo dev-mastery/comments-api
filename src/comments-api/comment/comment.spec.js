@@ -1,5 +1,5 @@
 import makeFakeComment from '../../../__test__/fixtures/comment'
-import makeComment from './comment'
+import makeComment from './'
 describe('comment', () => {
   it('must have an author', () => {
     const comment = makeFakeComment({ author: null })
