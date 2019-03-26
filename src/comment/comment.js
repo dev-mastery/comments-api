@@ -20,20 +20,16 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
       throw new Error("Comment author's name must be longer than 2 characters.")
     }
     if (!postId) {
-      throw new Error('Comment must contain an "postId".')
+      throw new Error('Comment must contain a postId.')
     }
     if (!text || text.length < 1) {
-      throw new Error(
-        'Comment must contain a "text" property that is at least 1 character long.'
-      )
+      throw new Error('Comment must include at least one character of text.')
     }
     if (!source) {
       throw new Error('Comment must have a source.')
     }
     if (replyToId && !Id.isValidId(replyToId)) {
-      throw new Error(
-        'If supplied. Comment must contain a "replyToId" property that is a valid cuid.'
-      )
+      throw new Error('If supplied. Comment must contain a valid replyToId.')
     }
 
     let sanitizedText = sanitize(text).trim()

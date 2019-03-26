@@ -8,20 +8,18 @@ describe('comment', () => {
 
   it('must have a valid post id', () => {
     const comment = makeFakeComment({ postId: null })
-    expect(() => makeComment(comment)).toThrow(
-      'Comment must contain an "postId".'
-    )
+    expect(() => makeComment(comment)).toThrow('Comment must contain a postId.')
   })
   it('must have valid text', () => {
     const comment = makeFakeComment({ text: null })
     expect(() => makeComment(comment)).toThrow(
-      'Comment must contain a "text" property that is at least 1 character long.'
+      'Comment must include at least one character of text.'
     )
   })
   it('can be in reply to another comment', () => {
     const comment = makeFakeComment({ replyToId: 'invalid' })
     expect(() => makeComment(comment)).toThrow(
-      'If supplied. Comment must contain a "replyToId" property that is a valid cuid.'
+      'If supplied. Comment must contain a valid replyToId.'
     )
     const notInReply = makeFakeComment({ replyToId: undefined })
     expect(() => makeComment(notInReply)).not.toThrow()
