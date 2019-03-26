@@ -38,21 +38,13 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
     }
 
     const validSource = makeSource(source)
-
-    const hash = md5(
-      sanitizedText +
-        published +
-        (author || '') +
-        (postId || '') +
-        (replyToId || '')
-    )
-
     const deletedText = '.xX This comment has been deleted Xx.'
+    let hash
 
     return Object.freeze({
       getAuthor: () => author,
       getCreatedOn: () => createdOn,
-      getHash: () => hash,
+      getHash: () => hash || (hash = makeHash()),
       getId: () => id,
       getModifiedOn: () => modifiedOn,
       getPostId: () => postId,
@@ -72,5 +64,15 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
         published = false
       }
     })
+
+    function makeHash () {
+      return md5(
+        sanitizedText +
+          published +
+          (author || '') +
+          (postId || '') +
+          (replyToId || '')
+      )
+    }
   }
 }
