@@ -1,4 +1,4 @@
-import Id from '../adapters/Id'
+import Id from '../Id'
 
 export default function makeCommentsDb ({ makeDb }) {
   return Object.freeze({

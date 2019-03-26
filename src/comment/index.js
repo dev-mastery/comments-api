@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import Id from '../adapters/Id'
+import Id from '../Id'
 import ipRegex from 'ip-regex'
 import sanitizeHtml from 'sanitize-html'
 import buildMakeComment from './comment'

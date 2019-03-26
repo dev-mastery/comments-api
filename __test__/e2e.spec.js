@@ -1,5 +1,5 @@
 import axios from 'axios'
-import commentsDb, { makeDb } from '../src/comments-api/data-access'
+import commentsDb, { makeDb } from '../src/data-access'
 import makeFakeComment from './fixtures/comment'
 import dotenv from 'dotenv'
 dotenv.config()

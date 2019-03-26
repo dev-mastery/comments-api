@@ -1,48 +1,48 @@
-import axios from 'axios'
-import pipe from '@devmastery/pipe'
-import qs from 'querystring'
+import querystring from 'querystring'
 
-export default async function isQuestionable ({
-  text,
-  ip,
-  browser,
-  referrer,
-  author,
-  createdOn,
-  modifiedOn,
-  testOnly
-} = {}) {
-  const callModerationApi = pipe(
-    buildModerationApiCommand,
-    axios,
-    normalizeModerationApiResponse
-  )
-  const callSpamApi = pipe(
-    buildAkismetApiCommand,
-    axios,
-    normalizeAkismetApiResponse
-  )
-  try {
-    const [inappropriate, spam] = await Promise.all([
-      callModerationApi(text),
-      callSpamApi({
-        text,
-        ip,
-        browser,
-        referrer,
-        author,
-        createdOn,
-        modifiedOn,
-        testOnly
-      })
-    ])
-    return inappropriate || spam
-  } catch (e) {
-    console.log(e)
-    return true
+export default function makeIsQuestionable ({ pipe, issueHttpRequest }) {
+  return async function isQuestionable ({
+    text,
+    ip,
+    browser,
+    referrer,
+    author,
+    createdOn,
+    modifiedOn,
+    testOnly
+  } = {}) {
+    const callModerationApi = pipe(
+      buildModerationApiCommand,
+      issueHttpRequest,
+      normalizeModerationApiResponse
+    )
+    const callSpamApi = pipe(
+      buildAkismetApiCommand,
+      issueHttpRequest,
+      normalizeAkismetApiResponse
+    )
+
+    try {
+      const [inappropriate, spam] = await Promise.all([
+        callModerationApi(text),
+        callSpamApi({
+          text,
+          ip,
+          browser,
+          referrer,
+          author,
+          createdOn,
+          modifiedOn,
+          testOnly
+        })
+      ])
+      return inappropriate || spam
+    } catch (e) {
+      console.log(e)
+      return true
+    }
   }
 }
-
 export function buildModerationApiCommand (text) {
   return {
     method: 'post',
@@ -79,7 +79,7 @@ export function buildAkismetApiCommand ({
     },
     url: process.env.DM_SPAM_API_URL,
     method: 'post',
-    data: qs.stringify({
+    data: querystring.stringify({
       blog: 'https://devmastery.com',
       user_ip: ip,
       user_agent: browser,

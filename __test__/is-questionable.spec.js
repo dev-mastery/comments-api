@@ -1,4 +1,4 @@
-import isQuestionable from '../src/comments-api/adapters/is-questionable'
+import isQuestionable from '../src/is-questionable'
 import review from './fixtures/moderation-api/review.json'
 import noReview from './fixtures/moderation-api/no-review.json'
 import noClassification from './fixtures/moderation-api/no-classification.json'
@@ -49,7 +49,7 @@ describe('Is Questionable', () => {
     })
     expect(result).toBe(false)
   })
-  it.only('filters out spam', async () => {
+  it('filters out spam', async () => {
     const comment = makeFakeComment({
       text: noReview.OriginalText,
       author: 'viagra-test-123'

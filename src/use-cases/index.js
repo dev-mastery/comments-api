@@ -4,7 +4,7 @@ import makeRemoveComment from './remove-comment'
 import makeListComments from './list-comments'
 import makeHandleModeration from './handle-moderation'
 import commentsDb from '../data-access'
-import isQuestionable from '../adapters/is-questionable'
+import isQuestionable from '../is-questionable/is-questionable'
 
 const handleModeration = makeHandleModeration({
   isQuestionable,

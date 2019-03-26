@@ -1,4 +1,4 @@
-import { makeDb } from '../src/comments-api/data-access'
+import { makeDb } from '../src/data-access'
 import dotenv from 'dotenv'
 dotenv.config()
 ;(async function setupDb () {
