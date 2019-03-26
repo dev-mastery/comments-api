@@ -1,5 +1,5 @@
 import makePatchComment from './patch-comment'
-import makeFakeComment from '../../../__test__/fixtures/comment'
+import makeFakeComment from '../../__test__/fixtures/comment'
 
 describe('patch comment controller', () => {
   it('successfully patches a comment', async () => {

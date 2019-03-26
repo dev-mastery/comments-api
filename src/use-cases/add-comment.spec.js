@@ -1,8 +1,8 @@
 import makeAddComment from './add-comment'
 import makeHandleModeration from './handle-moderation'
 import makeCommentsDb from '../data-access/comments-db'
-import makeFakeComment from '../../../__test__/fixtures/comment'
-import makeDb from '../../../__test__/fixtures/db'
+import makeFakeComment from '../../__test__/fixtures/comment'
+import makeDb from '../../__test__/fixtures/db'
 
 describe('add comment', () => {
   let commentsDb

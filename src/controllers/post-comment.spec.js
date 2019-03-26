@@ -1,5 +1,5 @@
 import makePostComment from './post-comment'
-import makeFakeComment from '../../../__test__/fixtures/comment'
+import makeFakeComment from '../../__test__/fixtures/comment'
 
 describe('post comment controller', () => {
   it('successfully posts a comment', async () => {

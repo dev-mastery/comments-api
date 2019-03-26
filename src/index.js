@@ -7,8 +7,8 @@ import {
   notFound,
   postComment,
   patchComment
-} from './comments-api/controllers'
-import makeCallback from './comments-api/adapters/express-callback'
+} from './controllers'
+import makeCallback from './adapters/express-callback'
 
 dotenv.config()
 

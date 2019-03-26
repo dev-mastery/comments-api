@@ -3,10 +3,10 @@ import {
   normalizeModerationApiResponse,
   buildAkismetApiCommand
 } from './is-questionable'
-import makeFakeComment from '../../../__test__/fixtures/comment'
-import review from '../../../__test__/fixtures/moderation-api/review.json'
-import noReview from '../../../__test__/fixtures/moderation-api/no-review.json'
-import noClassification from '../../../__test__/fixtures/moderation-api/no-classification.json'
+import makeFakeComment from '../../__test__/fixtures/comment'
+import review from '../../__test__/fixtures/moderation-api/review.json'
+import noReview from '../../__test__/fixtures/moderation-api/no-review.json'
+import noClassification from '../../__test__/fixtures/moderation-api/no-classification.json'
 import dotenv from 'dotenv'
 import qs from 'querystring'
 dotenv.config()

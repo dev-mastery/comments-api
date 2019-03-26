@@ -1,7 +1,7 @@
 import makeGetComments from './list-comments'
 import makeCommentsDb from '../data-access/comments-db'
-import makeFakeComment from '../../../__test__/fixtures/comment'
-import makeDb from '../../../__test__/fixtures/db'
+import makeFakeComment from '../../__test__/fixtures/comment'
+import makeDb from '../../__test__/fixtures/db'
 
 describe('get comments', () => {
   let commentsDb, getComments

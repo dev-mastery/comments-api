@@ -1,6 +1,6 @@
-import makeDb from '../../../__test__/fixtures/db'
+import makeDb from '../../__test__/fixtures/db'
 import makeCommentsDb from './comments-db'
-import makeFakeComment from '../../../__test__/fixtures/comment'
+import makeFakeComment from '../../__test__/fixtures/comment'
 
 describe('comments db', () => {
   let commentsDb
