@@ -1,21 +1,16 @@
 export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
   return function makeComment ({
     author,
-    createdOn,
-    id,
+    createdOn = Date.now(),
+    id = Id.makeId(),
     source,
-    modifiedOn,
+    modifiedOn = Date.now(),
     postId,
     published = false,
     replyToId,
     text
   } = {}) {
-    if (id) {
-      validateId(id)
-    } else {
-      id = Id.makeId()
-    }
-
+    validateId(id)
     validateAuthor(author)
     validatePostId(postId)
     validateText(text)
@@ -24,9 +19,6 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
 
     let sanitizedText = sanitize(text).trim()
     validateSanitizedText(sanitizedText)
-
-    createdOn = createdOn || Date.now()
-    modifiedOn = modifiedOn || Date.now()
 
     const validSource = makeSource(source)
 
