@@ -10,15 +10,36 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
     replyToId,
     text
   } = {}) {
-    validateId(id)
-    validateAuthor(author)
-    validatePostId(postId)
-    validateText(text)
-    validateSource(source)
-    validateReplyToId(replyToId)
+    if (!Id.isValidId(id)) {
+      throw new Error('Comment must have a valid id.')
+    }
+    if (!author) {
+      throw new Error('Comment must have an author.')
+    }
+    if (author.length < 2) {
+      throw new Error("Comment author's name must be longer than 2 characters.")
+    }
+    if (!postId) {
+      throw new Error('Comment must contain an "postId".')
+    }
+    if (!text || text.length < 1) {
+      throw new Error(
+        'Comment must contain a "text" property that is at least 1 character long.'
+      )
+    }
+    if (!source) {
+      throw new Error('Comment must have a source.')
+    }
+    if (replyToId && !Id.isValidId(replyToId)) {
+      throw new Error(
+        'If supplied. Comment must contain a "replyToId" property that is a valid cuid.'
+      )
+    }
 
     let sanitizedText = sanitize(text).trim()
-    validateSanitizedText(sanitizedText)
+    if (sanitizedText.length < 1) {
+      throw new Error('Comment contains no usable text.')
+    }
 
     const validSource = makeSource(source)
 
@@ -55,56 +76,5 @@ export default function buildMakeComment ({ Id, md5, sanitize, makeSource }) {
         published = false
       }
     })
-
-    function validateId (id) {
-      if (!Id.isValidId(id)) {
-        throw new Error('Invalid id.')
-      }
-    }
-
-    function validateSource (source) {
-      if (!source) {
-        throw new Error('Comment must have a source.')
-      }
-    }
-
-    function validateAuthor (author) {
-      if (!author) {
-        throw new Error('Comment must have an author.')
-      }
-      if (author.length < 2) {
-        throw new Error(
-          "Comment author's name must be longer than 2 characters."
-        )
-      }
-    }
-
-    function validatePostId (postId) {
-      if (!postId) {
-        throw new Error('Comment must contain an "postId".')
-      }
-    }
-
-    function validateText (text) {
-      if (!text || text.length < 1) {
-        throw new Error(
-          'Comment must contain a "text" property that is at least 1 character long.'
-        )
-      }
-    }
-
-    function validateReplyToId (replyToId) {
-      if (replyToId && !Id.isValidId(replyToId)) {
-        throw new Error(
-          'If supplied. Comment must contain a "replyToId" property that is a valid cuid.'
-        )
-      }
-    }
-
-    function validateSanitizedText (sanitized) {
-      if (sanitized.length < 1) {
-        throw new Error('Comment contains no usable text.')
-      }
-    }
   }
 }

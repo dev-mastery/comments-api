@@ -28,7 +28,7 @@ describe('comment', () => {
   })
   it('can have an id', () => {
     const comment = makeFakeComment({ id: 'invalid' })
-    expect(() => makeComment(comment)).toThrow('Invalid id.')
+    expect(() => makeComment(comment)).toThrow('Comment must have a valid id.')
     const noId = makeFakeComment({ id: undefined })
     expect(() => makeComment(noId)).not.toThrow()
   })
