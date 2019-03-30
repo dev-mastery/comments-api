@@ -1,15 +1,17 @@
-import querystring from 'querystring'
-
-export default function makeIsQuestionable ({ pipe, issueHttpRequest }) {
+export default function makeIsQuestionable ({
+  pipe,
+  issueHttpRequest,
+  querystring
+}) {
   return async function isQuestionable ({
-    text,
-    ip,
-    browser,
-    referrer,
     author,
+    browser,
     createdOn,
+    ip,
     modifiedOn,
-    testOnly
+    referrer,
+    testOnly,
+    text
   } = {}) {
     const callModerationApi = pipe(
       buildModerationApiCommand,
@@ -26,14 +28,15 @@ export default function makeIsQuestionable ({ pipe, issueHttpRequest }) {
       const [inappropriate, spam] = await Promise.all([
         callModerationApi(text),
         callSpamApi({
-          text,
-          ip,
-          browser,
-          referrer,
           author,
+          browser,
           createdOn,
+          ip,
           modifiedOn,
-          testOnly
+          querystring,
+          referrer,
+          testOnly,
+          text
         })
       ])
       return inappropriate || spam
@@ -64,14 +67,15 @@ export function normalizeModerationApiResponse (response) {
 }
 
 export function buildAkismetApiCommand ({
-  text,
-  ip,
-  browser,
-  referrer,
   author,
+  browser,
   createdOn,
+  ip,
   modifiedOn,
-  testOnly
+  querystring,
+  referrer,
+  testOnly,
+  text
 }) {
   return {
     headers: {
