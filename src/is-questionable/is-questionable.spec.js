@@ -66,7 +66,8 @@ describe('Is Questionable', () => {
       author: comment.author,
       createdOn: comment.createdOn,
       modifiedOn: comment.modifiedOn,
-      testOnly: true
+      testOnly: true,
+      querystring: qs
     })
     expect(actual).toEqual(expected)
   })
