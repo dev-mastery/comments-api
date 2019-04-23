@@ -1,8 +1,6 @@
 # DevMastery Comments Microservice API
 To manage comments on various Dev Mastery properties.
 
-> **NOTE:** If you're looking for a version of the code as it was in the Mastery Monday episode, checkout the mastery-monday branch.
-
 ## Features
 * XSS Protection (via [sanitize-html](https://www.npmjs.com/package/sanitize-html))
 * Flags Spam (via [Akismet](https://akismet.com/))
