@@ -1,6 +1,10 @@
 # DevMastery Comments Microservice API
 To manage comments on various Dev Mastery properties.
 
+[Using Clean Architecture for Microservice APIs in Node.js with MongoDB and Express](https://www.youtube.com/watch?v=CnailTcJV_U)
+
+> In this video we talk about Bob Martin's Clean Architecture model and I will show you how we can apply it to a Microservice built in node.js with MongoDB and Express JS - @arcdev1
+
 ## Features
 * XSS Protection (via [sanitize-html](https://www.npmjs.com/package/sanitize-html))
 * Flags Spam (via [Akismet](https://akismet.com/))
