@@ -16,7 +16,7 @@ To manage comments on various Dev Mastery properties.
 #### Prerequisites
 * [Git](https://git-scm.com/downloads)
 * [Node JS](https://nodejs.org/en/)
-* [Mongo DB](https://www.mongodb.com)
+* [Mongo DB](https://www.mongodb.com) (To use the Mongo DB interface as shown in the Mastery Monday youtube video, you need to install Mongo Compass)
 * [Azure Content Moderator account (free)](https://contentmoderator.cognitive.microsoft.com)
 * [Akismet Developer account (free)](https://akismet.com/development/api/#getting-started)
 
