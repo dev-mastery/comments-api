@@ -28,11 +28,11 @@ app.patch(`${apiRoot}/comments`, makeCallback(patchComment))
 app.get(`${apiRoot}/comments`, makeCallback(getComments))
 app.use(makeCallback(notFound))
 
-if (process.env.DM_ENV === 'dev') {
+
   // listen for requests
   app.listen(3000, () => {
     console.log('Server is listening on port 3000')
   })
-}
+
 
 export default app
