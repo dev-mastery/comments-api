@@ -1,4 +1,4 @@
-module.exports = function makeExpressCallabck (controller) {
+module.exports = function makeExpressCallback (controller) {
   return (req, res) => {
     const httpRequest = {
       body: req.body,
