@@ -14,7 +14,6 @@ export default function makeEditComment ({ commentsDb, handleModeration }) {
     }
     const comment = makeComment({ ...existing, ...changes, modifiedOn: null })
     if (comment.getHash() === existing.hash) {
-      console.log(comment)
       return existing
     }
     const moderated = await handleModeration({ comment })
