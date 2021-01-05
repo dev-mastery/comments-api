@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@devmastery/pipe": "^0.0.6",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-plugin-inline-dotenv": "^1.2.2",
     "body-parser": "^1.18.3",
     "cuid": "^2.1.6",
