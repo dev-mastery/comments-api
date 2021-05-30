@@ -11,6 +11,9 @@ To manage comments on various Dev Mastery properties.
 * Flags rude or inappropriate language (English only via [Content Moderator](https://contentmoderator.cognitive.microsoft.com))
 * Flags personally identifiable information (English only via [Content Moderator](https://contentmoderator.cognitive.microsoft.com))
 
+## Dependency Visualization
+![dependency visualization of the comments api](./dependency-graph.png)
+
 ## Running Locally
 
 #### Prerequisites
