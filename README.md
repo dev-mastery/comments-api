@@ -44,3 +44,14 @@ To run in development mode where code is run by [babel-node](https://babeljs.io/
 ```bash
 npm run dev
 ```
+
+#### 5. Optional: Dependency Visualization
+
+The dependency visualization is done with [dependency-cruiser](https://github.com/sverweij/dependency-cruiser).
+To generate the graph run:
+```bash
+npm run depvis
+```
+
+The file will then be generated in the root folder as `dep-graph.svg`:
+![dependency visualization of the comments api](./dep-graph.svg)

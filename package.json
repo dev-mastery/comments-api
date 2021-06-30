@@ -11,7 +11,8 @@
     "dev": "nodemon --exec babel-node ./src/index.js",
     "start": "npm run clean && npm run build && npm run db && cd dist && node index.js",
     "test": "jest src --watch",
-    "test:e2e": "jest ./__test__ --runInBand"
+    "test:e2e": "jest ./__test__ --runInBand",
+    "depvis": "dependency-cruise --do-not-follow node_modules --exclude \"(.*\\.spec\\.js)$|node_modules|__test__\" -T dot src | dot -T svg > dep-graph.svg"
   },
   "author": "Bill Sourour <bill@devmastery.com>",
   "license": "MIT",
@@ -40,6 +41,7 @@
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
     "babel-jest": "^24.4.0",
+    "dependency-cruiser": "^10.0.4",
     "dotenv": "^6.2.0",
     "eslint": "^5.15.1",
     "eslint-config-standard": "^12.0.0",
